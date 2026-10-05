@@ -12,7 +12,7 @@
    | HU-2 · Configuración de la edición | Josué | src/hu2-edicion |
    | HU-3 · Envío de trabajos | ? | src/hu3-trabajos |
    | HU-4 · Asignación de revisiones | ? | src/hu4-asignacion |
-   | HU-5 · Revisión y dictamen | ? | src/hu5-revision |
+   | HU-5 · Revisión y dictamen | Diego-QG | src/hu5-revision |
 
    ## Reglas del equipo
    1. Nadie sube directo a main.
