@@ -1,15 +1,28 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+
+// Importamos los componentes de las subvistas
 import Login from './login.jsx';
+import Register from './register.jsx';
 
 function App() {
-  const [vistaActual, setVistaActual] = useState('landing');
-  if (vistaActual === 'login') {
-      return <Login onNavegar={setVistaActual} />;
-    } 
+  // 1. VARIABLE DE ESTADO ÚNICA PARA CONTROLAR LA NAVEGACIÓN
+  // Posibles valores: 'landing', 'login', 'register'
+  const [vista, setVista] = useState('landing');
+
+  // 2. VISTA 1.2: INICIO DE SESIÓN
+  if (vista === 'login') {
+    return <Login onNavegar={setVista} />;
+  }
+
+  // 3. VISTA 1.3: REGISTRO DE PARTICIPANTE
+  if (vista === 'register') {
+    return <Register onNavegar={setVista} />;
+  }
+
+  // 4. VISTA 1.1: LANDING PAGE Y BASES DEL CONGRESO (PÁGINA PRINCIPAL)
   return (
-    <>
-      <div className="app-container">
+    <div className="app-container">
       {/* Franja superior granate del header */}
       <div className="top-header-bar"></div>
 
@@ -32,18 +45,37 @@ function App() {
 
         <nav className="main-nav">
           <ul className="nav-links">
-            <li><a href="#inicio" className="active">Inicio</a></li>
+            <li>
+              <a 
+                href="#inicio" 
+                className="active" 
+                onClick={(e) => { e.preventDefault(); setVista('landing'); }}
+              >
+                Inicio
+              </a>
+            </li>
             <li><a href="#bases">Bases del congreso</a></li>
             <li><a href="#ejes">Ejes temáticos</a></li>
             <li><a href="#programa">Programa</a></li>
           </ul>
+          
           <div className="auth-buttons">
-            <a href="#login" className="btn-secondary">Iniciar sesión</a>
-            <a href="#register" className="btn-primary">Crear cuenta</a>
+            {/* BOTÓN CONECTADO AL LOGIN (1.2) */}
+            <button 
+              type="button" 
+              className="btn-secondary" 
+              onClick={() => setVista('login')}
+            >
+              Iniciar sesión
+            </button>
+
+            {/* BOTÓN CONECTADO AL REGISTRO (1.3) */}
+            <button type="button" className="btn-primary" onClick={() => setVista('register')}>Crear cuenta</button>
           </div>
         </nav>
       </header>
 
+      {/* --- HERO SECTION --- */}
       <section className="hero-section" id="inicio">
         <div className="hero-card">
           <div className="hero-left">
@@ -54,10 +86,15 @@ function App() {
             </p>
           </div>
           <div className="hero-right">
-            <button type="button" className="btn-hero-primary" onClick={() => setVistaActual('login')}>
-                Enviar mi trabajo
-               </button>
-            <a href="" className="btn-hero-secondary">Descargar las bases</a>
+            {/* BOTÓN "ENVIAR MI TRABAJO" LLEVA AL LOGIN (1.2) */}
+            <button 
+              type="button" 
+              className="btn-hero-primary" 
+              onClick={() => setVista('login')}
+            >
+              Enviar mi trabajo
+            </button>
+            <a href="#bases" className="btn-hero-secondary">Descargar las bases</a>
           </div>
         </div>
       </section>
@@ -96,7 +133,7 @@ function App() {
         </div>
       </section>
 
-      {/* --- Fechas limites y criterios--- */}
+      {/* --- FECHAS LÍMITE Y CRITERIOS --- */}
       <section className="section-info grid-two-columns" id="bases">
         <div className="info-block">
           <h2 className="section-title">Fechas límite</h2>
@@ -124,25 +161,24 @@ function App() {
           <h2 className="section-title">Criterios de evaluación</h2>
           <div className="color-description">
             <ul className="info-list">
-            <li>
-              <span>Originalidad</span>
-              <strong>25 %</strong>
-            </li>
-            <li>
-              <span>Rigor metodológico</span>
-              <strong>30 %</strong>
-            </li>
-            <li>
-              <span>Claridad de la exposición</span>
-              <strong>20 %</strong>
-            </li>
-            <li>
-              <span>Relevancia y aporte</span>
-              <strong>25 %</strong>
-            </li>
-          </ul>
+              <li>
+                <span>Originalidad</span>
+                <strong>25 %</strong>
+              </li>
+              <li>
+                <span>Rigor metodológico</span>
+                <strong>30 %</strong>
+              </li>
+              <li>
+                <span>Claridad de la exposición</span>
+                <strong>20 %</strong>
+              </li>
+              <li>
+                <span>Relevancia y aporte</span>
+                <strong>25 %</strong>
+              </li>
+            </ul>
           </div>
-          
         </div>
       </section>
 
@@ -164,7 +200,15 @@ function App() {
           <div className="footer-col">
             <h4 className="gold-title">PARTICIPANTES</h4>
             <ul>
-              <li><a href="#autores">Guía para autores</a></li>
+              <li>
+                <button 
+                  type="button" 
+                  className="footer-link-btn" 
+                  onClick={() => setVista('register')}
+                >
+                  Guía para autores
+                </button>
+              </li>
               <li><a href="#revisores">Guía para revisores</a></li>
               <li><a href="#faq">Preguntas frecuentes</a></li>
             </ul>
@@ -184,8 +228,7 @@ function App() {
         </div>
       </footer>
     </div>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;

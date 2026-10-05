@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 
 
-function Login() {
+function Login({ onNavegar }) {
   const [email, setEmail] = useState('rosa.quispe@aloe.ulima.edu.pe');
   const [password, setPassword] = useState('•••••••••');
   const [showPassword, setShowPassword] = useState(false);
@@ -51,10 +51,11 @@ function Login() {
             <button type="button" className="btn-secondary active-auth">
               Iniciar sesión
             </button>
-            <button type="button" className="btn-primary">
+
+            <button type="button" className="btn-primary" onClick={() => onNavegar && onNavegar('register')}>
               Crear cuenta
             </button>
-          </div>
+            </div>
         </nav>
       </header>
 
@@ -152,7 +153,11 @@ function Login() {
           {/* Registro link */}
           <div className="login-register-prompt">
             <span>¿No tiene cuenta? </span>
-            <a href="#register" className="register-link">
+            <a
+              href="#register"
+              className="register-link"
+              onClick={() => onNavegar && onNavegar('register')}
+            >
               Registrarse como participante
             </a>
           </div>
