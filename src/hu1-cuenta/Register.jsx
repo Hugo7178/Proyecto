@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import './register.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
-function Register({ onNavegar }) {
+function Register() {
   const [formData, setFormData] = useState({
     nombres: 'Rosa María',
     apellidos: 'Quispe Ttito',
@@ -26,58 +27,15 @@ function Register({ onNavegar }) {
     }));
   };
 
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     // Al enviar con éxito, navega a la pantalla de confirmación/bienvenida (1.3 éxito)
-    if (onNavegar) onNavegar('registerSuccess');
+    navigate('/login');
   };
 
   return (
     <div className="login-app-container">
-      {/* Franja superior granate del header */}
-      <div className="top-header-bar"></div>
-
-      {/* --- HEADER --- */}
-      <header className="main-header">
-        <div className="header-top">
-          <div className="brand-logo">
-            <div className="logo-box">C</div>
-            <div className="brand-titles">
-              <h2>Congreso Académico Estudiantil</h2>
-              <p>UNIVERSIDAD DE LIMA · EDICIÓN 2026</p>
-            </div>
-          </div>
-          <div className="edition-status">
-            <span className="status-label">ESTADO DE LA EDICIÓN</span>
-            <span className="status-badge">Recepción abierta</span>
-          </div>
-        </div>
-
-        <nav className="main-nav">
-          <ul className="nav-links">
-            <li>
-              <a href="#inicio" onClick={() => onNavegar && onNavegar('landing')}>
-                Inicio
-              </a>
-            </li>
-            <li><a href="#bases">Bases del congreso</a></li>
-            <li><a href="#ejes">Ejes temáticos</a></li>
-            <li><a href="#programa">Programa</a></li>
-          </ul>
-          <div className="auth-buttons">
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={() => onNavegar && onNavegar('login')}
-            >
-              Iniciar sesión
-            </button>
-            <button type="button" className="btn-primary active-auth">
-              Crear cuenta
-            </button>
-          </div>
-        </nav>
-      </header>
 
       {/* --- CONTENIDO PRINCIPAL: REGISTRO DE PARTICIPANTE --- */}
       <main className="register-main-section">
@@ -292,7 +250,7 @@ function Register({ onNavegar }) {
                 <button
                   type="button"
                   className="btn-cancel-register"
-                  onClick={() => onNavegar && onNavegar('landing')}
+                  onClick={() => navigate('/')}
                 >
                   Cancelar
                 </button>
@@ -320,45 +278,6 @@ function Register({ onNavegar }) {
         </div>
       </main>
 
-      {/* --- FOOTER --- */}
-      <footer className="main-footer">
-        <div className="footer-content">
-          <div className="footer-col brand-col">
-            <h3>Congreso Académico Estudiantil</h3>
-            <p>
-              Facultad de Ingeniería · Universidad de Lima. Av. Javier Prado Este 4600, Santiago de Surco, Lima.
-            </p>
-          </div>
-          <div className="footer-col">
-            <h4 className="gold-title">EL CONGRESO</h4>
-            <ul>
-              <li><a href="#bases">Bases y requisitos</a></li>
-              <li><a href="#ejes">Ejes temáticos</a></li>
-              <li><a href="#programa">Programa</a></li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4 className="gold-title">PARTICIPANTES</h4>
-            <ul>
-              <li><a href="#autores">Guía para autores</a></li>
-              <li><a href="#revisores">Guía para revisores</a></li>
-              <li><a href="#faq">Preguntas frecuentes</a></li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4 className="gold-title">CONTACTO</h4>
-            <p>congreso@ulima.edu.pe</p>
-            <p>(01) 437 6767 anexo 30450</p>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2026 Universidad de Lima. Todos los derechos reservados.</p>
-          <div className="footer-legal">
-            <a href="#terminos">Términos de uso</a>
-            <a href="#privacidad">Política de privacidad</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

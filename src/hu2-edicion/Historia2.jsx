@@ -1,7 +1,8 @@
-import React from 'react';
-import './H2cod.css';
+import { useNavigate } from 'react-router-dom';
+import './Historia2.css';
 
-function Historia2({ onNavegar }) {
+function Historia2() {
+  const navigate = useNavigate();
   const sinAccion = (e) => e.preventDefault();
 
   return (
@@ -11,7 +12,7 @@ function Historia2({ onNavegar }) {
           <div
             className="marca"
             style={{ cursor: 'pointer' }}
-            onClick={() => onNavegar && onNavegar('portada')}
+            onClick={() => navigate('/portada')}
           >
             <div className="logo-c">C</div>
             <div>

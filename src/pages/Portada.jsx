@@ -1,10 +1,11 @@
-import React from 'react';
-import './portada.css';
+import { useNavigate } from 'react-router-dom';
+import './Portada.css';
 
-function Portada({ onNavegar }) {
-  const ir = (e, vista) => {
+function Portada() {
+  const navigate = useNavigate();
+  const ir = (e, ruta) => {
     e.preventDefault();
-    if (vista && onNavegar) onNavegar(vista);
+    if (ruta) navigate(ruta);
   };
 
   return (
@@ -35,13 +36,13 @@ function Portada({ onNavegar }) {
           <div className="historias-roles">
             <hr className="linea-separadora" />
             <div className="grid-historias">
-              <a href="#" className="btn-enlace" onClick={(e) => ir(e, 'landing')}>Historia 1 - Cuenta y acceso</a>
+              <a href="#" className="btn-enlace" onClick={(e) => ir(e, '/')}>Historia 1 - Cuenta y acceso</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 5 - Revisión y dictamen</a>
-              <a href="#" className="btn-enlace" onClick={(e) => ir(e, 'historia2')}>Historia 2 - Configuración de la edición</a>
+              <a href="#" className="btn-enlace" onClick={(e) => ir(e, '/comite/edicion')}>Historia 2 - Configuración de la edición</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 6 - Programa del congreso</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 3 - Envío de trabajos</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 7 - Métricas y usuarios</a>
-              <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 4 - Asignación de revisiones</a>
+              <a href="#" className="btn-enlace" onClick={(e) => ir(e, '/comite/asignaciones')}>Historia 4 - Asignación de revisiones</a>
 
               <div className="roles-container">
                 Roles:{' '}
