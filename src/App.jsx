@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import './App.css';
 
-// Importamos los componentes de las subvistas
 import Login from './login.jsx';
 import Register from './register.jsx';
-import Historia4 from './historia4.jsx';
+import Portada from './Portada.jsx';
+import Historia2 from './Historia2.jsx';
 
 function App() {
-  // 1. VARIABLE DE ESTADO ÚNICA PARA CONTROLAR LA NAVEGACIÓN
-  // Posibles valores: 'landing', 'login', 'register'
-  const [vista, setVista] = useState(window.location.hash === '#historia4' ? 'historia4' : 'landing');
 
-  // VISTA COMITÉ: HU-4 · ASIGNACIÓN DE REVISIONES (se abre en /#historia4)
-  if (vista === 'historia4') {
-    return <Historia4 />;
+  const [vista, setVista] = useState('portada');
+
+  if (vista === 'portada') {
+    return <Portada onNavegar={setVista} />;
   }
 
-  // 2. VISTA 1.2: INICIO DE SESIÓN
+  if (vista === 'historia2') {
+    return <Historia2 onNavegar={setVista} />;
+  }
+
   if (vista === 'login') {
     return <Login onNavegar={setVista} />;
   }
 
-  // 3. VISTA 1.3: REGISTRO DE PARTICIPANTE
   if (vista === 'register') {
     return <Register onNavegar={setVista} />;
   }
