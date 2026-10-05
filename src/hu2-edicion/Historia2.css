@@ -21,7 +21,8 @@
     box-sizing: border-box;
 }
 
-body {
+.historia2-pagina {
+    width: 100%;
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     line-height: 22px;
@@ -29,7 +30,7 @@ body {
     color: var(--color-text);
 }
 
-a {
+.historia2-pagina a {
     color: var(--color-primary);
 }
 
