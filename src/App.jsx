@@ -10,6 +10,8 @@ import Register from './hu1-cuenta/Register';
 import Historia2 from './hu2-edicion/Historia2';
 // HU-4 · Asignación de revisiones
 import Historia4 from './hu4-asignacion/Historia4';
+// HU-5 · Revisión y dictamen
+import BandejaRevisor from './hu5-revision/BandejaRevisor';
 
 export default function App() {
   return (
@@ -30,7 +32,8 @@ export default function App() {
         <Route path="/registro" element={<Register />} />
 
         {/* HU-3: /autor/trabajos */}
-        {/* HU-5: /revisor/bandeja */}
+        {/* HU-5 */}
+        <Route path="/revisor/bandeja" element={<BandejaRevisor />} />
       </Route>
     </Routes>
   );
