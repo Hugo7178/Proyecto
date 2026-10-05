@@ -37,7 +37,7 @@ function Portada() {
             <hr className="linea-separadora" />
             <div className="grid-historias">
               <a href="#" className="btn-enlace" onClick={(e) => ir(e, '/')}>Historia 1 - Cuenta y acceso</a>
-              <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 5 - Revisión y dictamen</a>
+              <a href="#" className="btn-enlace" onClick={(e) => ir(e, '/revisor/bandeja')}>Historia 5 - Revisión y dictamen</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e, '/comite/edicion')}>Historia 2 - Configuración de la edición</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 6 - Programa del congreso</a>
               <a href="#" className="btn-enlace" onClick={(e) => ir(e)}>Historia 3 - Envío de trabajos</a>
@@ -50,7 +50,7 @@ function Portada() {
                 {', '}
                 <a href="#" className="btn-rol" onClick={(e) => ir(e)}>autor</a>
                 {', '}
-                <a href="#" className="btn-rol" onClick={(e) => ir(e)}>revisor</a>
+                <a href="#" className="btn-rol" onClick={(e) => ir(e, '/revisor/bandeja')}>revisor</a>
                 {' y '}
                 <a href="#" className="btn-rol" onClick={(e) => ir(e)}>comité</a>
               </div>
