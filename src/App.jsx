@@ -4,11 +4,17 @@ import './App.css';
 // Importamos los componentes de las subvistas
 import Login from './login.jsx';
 import Register from './register.jsx';
+import Historia4 from './historia4.jsx';
 
 function App() {
   // 1. VARIABLE DE ESTADO ÚNICA PARA CONTROLAR LA NAVEGACIÓN
   // Posibles valores: 'landing', 'login', 'register'
-  const [vista, setVista] = useState('landing');
+  const [vista, setVista] = useState(window.location.hash === '#historia4' ? 'historia4' : 'landing');
+
+  // VISTA COMITÉ: HU-4 · ASIGNACIÓN DE REVISIONES (se abre en /#historia4)
+  if (vista === 'historia4') {
+    return <Historia4 />;
+  }
 
   // 2. VISTA 1.2: INICIO DE SESIÓN
   if (vista === 'login') {
