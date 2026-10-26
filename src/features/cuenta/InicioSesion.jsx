@@ -66,7 +66,6 @@ function InicioSesion() {
   return (
     <div className="login-app-container">
 
-      {/* --- SECCIÓN PRINCIPAL DE INICIO DE SESIÓN --- */}
       <section className="login-main-section">
         <DisenoAcceso>
         <div className="login-card">

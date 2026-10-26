@@ -144,11 +144,9 @@ function Registro() {
   return (
     <div className="login-app-container">
 
-      {/* --- CONTENIDO PRINCIPAL: REGISTRO DE PARTICIPANTE --- */}
       <main className="register-main-section">
         <div className="register-layout-grid">
           
-          {/* Columna Izquierda: Formulario de Registro */}
           <div className="register-card">
             <h1 className="register-title">Registro de participante</h1>
             <p className="register-subtitle">
@@ -164,7 +162,6 @@ function Registro() {
               )}
               {serviceError && <div className="register-error-banner" role="alert">{serviceError}</div>}
               
-              {/* Nombres y Apellidos */}
               <div className="form-row-two-cols">
                 <div className="form-group">
                   <label htmlFor="nombres">NOMBRES *</label>
@@ -196,7 +193,6 @@ function Registro() {
                 </div>
               </div>
 
-              {/* Correo Institucional */}
               <div className="form-group">
                 <label htmlFor="email">CORREO INSTITUCIONAL *</label>
                 <input
@@ -214,7 +210,6 @@ function Registro() {
                 </span>
               </div>
 
-              {/* Institución */}
               <div className="form-group">
                 <label htmlFor="institucion">INSTITUCIÓN *</label>
                 <select
@@ -232,7 +227,6 @@ function Registro() {
                 {errors.institucion && <span className="field-error-message">{errors.institucion}</span>}
               </div>
 
-              {/* Contraseñas en dos columnas */}
               <div className="form-row-two-cols">
                 <div className="form-group">
                   <label htmlFor="password">CONTRASEÑA *</label>
@@ -287,7 +281,6 @@ function Registro() {
                 </div>
               </div>
 
-              {/* Carrera y Código de Alumno */}
               <div className="form-row-two-cols">
                 <div className="form-group">
                   <label htmlFor="carrera">CARRERA *</label>
@@ -320,7 +313,6 @@ function Registro() {
                 </div>
               </div>
 
-              {/* Deseo participar como (Radio buttons) */}
               <div className="form-group">
                 <label className="section-radio-title">DESEO PARTICIPAR COMO *</label>
                 <div className="radio-options-group">
@@ -372,7 +364,6 @@ function Registro() {
               </div>
 
               <div className="register-footer-actions">
-                {/* Checkbox Acepto bases */}
                 <div className="form-group checkbox-bases">
                   <label className="checkbox-label">
                     <input
@@ -390,7 +381,6 @@ function Registro() {
                   )}
                 </div>
 
-                {/* Acciones del formulario */}
                 <div className="register-actions">
                   <button
                     type="button"
@@ -408,7 +398,6 @@ function Registro() {
             </form>
           </div>
 
-          {/* Columna Derecha: Panel informativo lateral */}
           <aside className="register-info-sidebar">
             <FotoAcceso className="register-foto" />
             <div className="info-sidebar-box">

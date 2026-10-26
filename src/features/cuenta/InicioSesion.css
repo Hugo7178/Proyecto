@@ -1,11 +1,9 @@
-
 .login-app-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* --- VISTA DE INICIO DE SESIÓN --- */
 .login-main-section {
   background-color: #FBFAF8;
   padding: 60px 40px;
@@ -231,7 +229,6 @@
   margin-bottom: 24px;
 }
 
-/* Ícono del signo de exclamación dentro de la alerta */
 .alert-icon {
   background-color: #B4322B; /* --color-danger de la paleta */
   color: #FFFFFF;
@@ -247,7 +244,6 @@
   margin-top: 2px;
 }
 
-/* Texto de la alerta general */
 .alert-error-banner p {
   font-size: 13px;
   color: #B4322B; /* --color-danger */
@@ -255,7 +251,6 @@
   font-weight: 500;
 }
 
-/* Campo con error: Borde rojo para la contraseña */
 .form-group input.input-field-error {
   border-color: #B4322B !important;
 }
@@ -264,7 +259,6 @@
   border-color: #B4322B !important;
 }
 
-/* Mensaje de validación en línea ubicado debajo del campo */
 .field-error-message {
   font-size: 12px;
   color: #B4322B;

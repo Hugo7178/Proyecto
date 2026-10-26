@@ -9,7 +9,6 @@ function ConfiguracionEdicion() {
   const [exito, setExito] = useState('');
   const [error, setError] = useState('');
 
-  // Modal de cambio de estado (2.6)
   const [modalAbierto, setModalAbierto] = useState(false);
   const [entiende, setEntiende] = useState(false);
   const [palabra, setPalabra] = useState('');

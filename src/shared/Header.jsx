@@ -4,7 +4,6 @@ import { Menu, X } from 'lucide-react';
 import isotipo from '../assets/marca/isotipo.svg';
 import { getCurrentParticipant, signOut } from './cuentaServicio';
 
-// Encabezado común. Se modifica SOLO aquí.
 export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();

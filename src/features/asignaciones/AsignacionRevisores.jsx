@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import './AsignacionRevisores.css';
 
-/* ======================= DATOS DE PRUEBA (semilla local) ======================= */
 const HOY = '2026-10-12'; // fecha de referencia fija para que el demo sea reproducible
 const CIERRE_REVISION = '2026-10-20';
 const EJES = ['Inteligencia artificial y datos', 'Ingeniería de software', 'Sostenibilidad y ciudad', 'Innovación y emprendimiento', 'Salud y sociedad', 'Economía y mercados'];
@@ -59,7 +58,6 @@ const MIN_REV = 2;
 const MAX_REV = 3;
 const POR_PAGINA = 8;
 
-/* ============================ REGLAS Y UTILIDADES ============================ */
 const fmt = (iso) => iso.split('-').reverse().join('/');
 const plural = (n, uno, varios) => (n === 1 ? uno : varios);
 const norm = (t) => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -122,7 +120,6 @@ function paginar(lista, pagina) {
   return { actual, total, inicio, visibles: lista.slice(inicio, inicio + POR_PAGINA) };
 }
 
-/* =========================== COMPONENTES COMPARTIDOS =========================== */
 const FOCUSABLES = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])';
 
 /** Modal accesible: Esc y clic fuera cierran; el foco se queda dentro y vuelve al cerrar. */
@@ -236,7 +233,6 @@ function Paginacion({ pagina, total, inicio, mostrados, cantidad, nombre, extra,
   );
 }
 
-/* ============================== MODAL DE ASIGNACIÓN ============================== */
 function ModalAsignar({ d, ids, onCerrar, onHecho }) {
   const idFecha = useId();
   const idJust = useId();
@@ -378,7 +374,6 @@ function ModalAsignar({ d, ids, onCerrar, onHecho }) {
   );
 }
 
-/* ====================== MODAL: REASIGNAR / RETIRAR (con motivo) ====================== */
 function ModalMotivo({ d, modo, asigId, onCerrar }) {
   const idMotivo = useId();
   const idNuevo = useId();
@@ -498,7 +493,6 @@ function ModalMotivo({ d, modo, asigId, onCerrar }) {
   );
 }
 
-/* ================== MODAL: REVISORES DE UN TRABAJO + HISTORIAL ================== */
 function ModalRevisoresTrabajo({ d, trabajoId, onCerrar, onAccion, onAgregar }) {
   const t = d.filas.find((f) => f.id === trabajoId);
   if (!t) return null;
@@ -575,7 +569,6 @@ function ModalRevisoresTrabajo({ d, trabajoId, onCerrar, onAccion, onAgregar }) 
   );
 }
 
-/* ================================ 4.1 TRABAJOS ================================ */
 function Trabajos({ d, irA }) {
   const [f, setF] = useState({ eje: '', estado: '', tipo: '', texto: '' });
   const [pagina, setPagina] = useState(1);
@@ -743,7 +736,6 @@ function Trabajos({ d, irA }) {
   );
 }
 
-/* ================================ 4.3 REVISORES ================================ */
 function Revisores({ d }) {
   const [f, setF] = useState({ linea: '', inst: '', venc: false, texto: '' });
   const [pagina, setPagina] = useState(1);
@@ -844,7 +836,6 @@ function Revisores({ d }) {
   );
 }
 
-/* =============================== 4.4 SEGUIMIENTO =============================== */
 function Seguimiento({ d, setVista }) {
   const [soloVenc, setSoloVenc] = useState(false);
   const [modal, setModal] = useState(null);
@@ -927,7 +918,6 @@ function Seguimiento({ d, setVista }) {
   );
 }
 
-/* ============================= PANTALLA PRINCIPAL ============================= */
 const PESTANAS = [
   ['configuracion', 'Configuración', false], ['trabajos', 'Trabajos recibidos', true], ['revisores', 'Revisores', true], ['seguimiento', 'Seguimiento', true],
   ['programa', 'Programa', false], ['tablero', 'Tablero', false], ['usuarios', 'Usuarios', false],

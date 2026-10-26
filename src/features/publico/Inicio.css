@@ -1,4 +1,3 @@
-/* --- HERO --- */
 /* Ocupa todo el ancho de la ventana aunque esté dentro de .contenedor-principal (1200 px). */
 .hero-section {
   position: relative;
@@ -120,7 +119,6 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* --- EJES TEMÁTICOS --- */
 .section-ejes {
   padding: 48px 40px;
   background-color: var(--color-bg);
@@ -188,7 +186,6 @@
   color: var(--color-text-muted);
 }
 
-/* --- CÓMO PARTICIPAR --- */
 .section-pasos {
   padding: 56px 40px 8px;
   background-color: var(--color-bg);
@@ -273,7 +270,6 @@
   background-color: var(--color-primary-dark);
 }
 
-/* --- FECHAS CLAVE --- */
 .section-bases {
   padding: 8px 40px 56px;
   background-color: var(--color-bg);
@@ -371,7 +367,6 @@
   color: var(--color-text-muted);
 }
 
-/* --- CRITERIOS --- */
 .criterios-cabecera {
   margin-top: 48px;
 }
@@ -421,7 +416,6 @@
   background-color: var(--color-primary);
 }
 
-/* --- SEDE --- */
 .section-sede {
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
@@ -512,7 +506,6 @@
   background-color: var(--color-primary-soft);
 }
 
-/* --- TABLET --- */
 @media (max-width: 1023px) {
   .grid-cards {
     grid-template-columns: repeat(2, 1fr);
@@ -532,7 +525,6 @@
   }
 }
 
-/* --- CELULAR --- */
 @media (max-width: 767px) {
   .hero-foto img {
     object-position: center bottom;
