@@ -11,7 +11,8 @@ import { ProgramaContexto } from './programaContexto';
 export default function ProgramaProvider({ children }) {
   const [sesiones, setSesiones] = useState(obtenerSesiones);
   const [programa, setPrograma] = useState(obtenerPrograma);
-  const [trabajosAceptados] = useState(obtenerTrabajosAceptados);
+  // Se lee en cada render para ver al momento los dictámenes nuevos del comité.
+  const trabajosAceptados = obtenerTrabajosAceptados();
 
   function actualizarSesiones(nuevas) {
     setSesiones(nuevas);

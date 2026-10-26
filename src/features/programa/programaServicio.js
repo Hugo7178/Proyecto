@@ -2,6 +2,8 @@ import seed from '../../data/seed.json';
 
 const CLAVE_SESIONES = 'congreso.sesiones';
 const CLAVE_PROGRAMA = 'congreso.programa';
+// Clave compartida con la HU-5: ahí se guardan las decisiones del comité.
+const CLAVE_DICTAMENES = 'congreso.dictamenes';
 
 export const DURACION_TRABAJO = 20;
 
@@ -42,9 +44,11 @@ export function guardarPrograma(programa) {
   escribir(CLAVE_PROGRAMA, programa);
 }
 
-// Trabajos con dictamen de aceptación (HU-5): los únicos que entran al programa.
+// Trabajos con dictamen de aceptación publicado (HU-5): los únicos que entran al programa.
+// Incluye las decisiones que el comité registra en el navegador, no solo las del seed.
 export function obtenerTrabajosAceptados() {
-  const aceptados = seed.dictamenes
+  const aceptados = leer(CLAVE_DICTAMENES, seed.dictamenes)
+    .filter((d) => d.estado !== 'borrador')
     .filter((d) => d.decision === 'aceptado' || d.decision === 'aceptado_con_observaciones')
     .map((d) => d.trabajoId);
   return seed.trabajos.filter((t) => aceptados.includes(t.id));
