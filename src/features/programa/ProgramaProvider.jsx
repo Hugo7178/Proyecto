@@ -37,6 +37,11 @@ export default function ProgramaProvider({ children }) {
     return actualizarSesiones(sesiones.filter((s) => s.id !== sesionId));
   }
 
+  // Guarda la lista de trabajos de una sesión; su orden es el orden de exposición.
+  function guardarTrabajosDeSesion(sesionId, trabajos) {
+    return actualizarSesiones(sesiones.map((s) => (s.id === sesionId ? { ...s, trabajos } : s)));
+  }
+
   function cambiarPublicacion(publicado) {
     const nuevo = { ...programa, publicado };
     setPrograma(nuevo);
@@ -49,6 +54,7 @@ export default function ProgramaProvider({ children }) {
     trabajosAceptados,
     guardarSesion,
     eliminarSesion,
+    guardarTrabajosDeSesion,
     cambiarPublicacion,
   };
 

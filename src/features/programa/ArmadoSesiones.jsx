@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { TriangleAlert } from 'lucide-react';
 import DialogoConfirmacion from '../../shared/DialogoConfirmacion';
 import { usePrograma } from './programaContexto';
@@ -135,6 +136,9 @@ export default function ArmadoSesiones() {
                       <button type="button" className="armado-enlace" onClick={() => setFormulario({ sesion: s })}>
                         Editar
                       </button>
+                      <Link to={`/comite/programa/${s.id}`} className="armado-enlace">
+                        Trabajos
+                      </Link>
                       <button type="button" className="armado-enlace armado-enlace-peligro" onClick={() => setAEliminar(s)}>
                         Eliminar
                       </button>
