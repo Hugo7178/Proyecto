@@ -9,6 +9,12 @@
   font-size: 11px;
 }
 
+.mis-trabajos__aviso-demostracion {
+  margin-top: 8px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
 .mis-trabajos__encabezado,
 .mis-trabajos__herramientas,
 .mis-trabajos__meta,
@@ -157,6 +163,21 @@
   border-color: var(--color-border);
   background: #f3f0ed;
   color: #756b66;
+}
+
+.mis-trabajos__estado--enviado {
+  border-color: #7ea8d5;
+  background: #eaf2fb;
+  color: #315f91;
+}
+
+.mis-trabajos__etiqueta-demostracion {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 3px 6px;
+  background: #f3f0ed;
+  color: #756b66;
+  font-size: 9px;
 }
 
 .mis-trabajos__tarjeta h2 {

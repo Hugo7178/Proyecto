@@ -285,15 +285,6 @@ export default function NuevoTrabajo() {
                   <div><dt>Tipo</dt><dd>{datosBorrador.tipo}</dd></div>
                   <div><dt>Eje temático</dt><dd>{datosBorrador.eje || 'Pendiente de seleccionar'}</dd></div>
                   <div><dt>Coautores</dt><dd>0 declarados</dd></div>
-                  <div>
-                    <dt>Enlace al documento</dt>
-
-                    <dd>{datosBorrador.enlace
-                      ? esUrlHttps(datosBorrador.enlace)
-                        ? <a href={datosBorrador.enlace} target="_blank" rel="noreferrer">{datosBorrador.enlace}</a>
-                        : datosBorrador.enlace
-                      : 'Pendiente de agregar'}</dd>
-                  </div>
                   <div className="nuevo-trabajo__dato-resumen">
                     <dt>Resumen</dt>
                     <dd>{datosBorrador.resumen || 'Aún no se ha agregado un resumen.'}</dd>
