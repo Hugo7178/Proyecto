@@ -13,7 +13,6 @@ import {
 } from './programaServicio';
 import './MiPresentacion.css';
 
-// 6.4 · Fecha, hora y sala de la presentación del autor.
 export default function MiPresentacion() {
   const { sesiones, programa, trabajosAceptados } = usePrograma();
   const { aceptados, presentaciones } = presentacionesDe(getCurrentParticipant(), sesiones, trabajosAceptados);
@@ -121,7 +120,6 @@ function Tarjeta({ trabajo, sesion, posicion }) {
   );
 }
 
-// Descarga el archivo .ics para abrirlo con Google Calendar, Outlook o el calendario del celular.
 function descargarEvento(presentacion) {
   const archivo = new Blob([eventoCalendario(presentacion)], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(archivo);

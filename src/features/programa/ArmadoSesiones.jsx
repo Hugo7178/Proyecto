@@ -24,7 +24,6 @@ function ordenar(sesiones) {
   );
 }
 
-// 6.1 · Armado de sesiones del congreso (comité).
 export default function ArmadoSesiones() {
   const { sesiones, programa, trabajosAceptados, guardarSesion, eliminarSesion, cambiarPublicacion } = usePrograma();
   // null: cerrado · {}: nueva sesión · { sesion }: editar
@@ -72,7 +71,6 @@ export default function ArmadoSesiones() {
     setConfirmarPublicacion(false);
   }
 
-  // No se publica un programa vacío ni con salas cruzadas.
   const motivoNoPublicar =
     sesiones.length === 0
       ? 'Cree al menos una sesión para publicar el programa.'
@@ -266,7 +264,6 @@ export default function ArmadoSesiones() {
   );
 }
 
-// Barras con las horas ocupadas de cada sala en el día elegido.
 function OcupacionSalas({ sesiones, enConflicto }) {
   const [dia, setDia] = useState(DIAS_CONGRESO[0]);
   const inicio = aMinutos(JORNADA.inicio);

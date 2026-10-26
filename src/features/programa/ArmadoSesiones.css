@@ -85,7 +85,6 @@
   font-weight: 600;
 }
 
-/* Tabla de sesiones */
 .armado-tabla-scroll {
   overflow-x: auto;
   border: 1px solid var(--color-border);
@@ -200,7 +199,6 @@
   color: var(--color-text-muted);
 }
 
-/* Paneles inferiores */
 .armado-paneles {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -335,7 +333,6 @@
   color: var(--color-text-muted);
 }
 
-/* Ventana de nueva / editar sesión */
 .armado-fondo {
   position: fixed;
   inset: 0;

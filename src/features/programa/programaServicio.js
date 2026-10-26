@@ -50,7 +50,6 @@ export function guardarPrograma(programa) {
   return escribir(CLAVE_PROGRAMA, programa);
 }
 
-// Ejes temáticos con los mismos nombres que usan los trabajos.
 export function obtenerEjes() {
   return [...new Set(seed.trabajos.map((t) => t.eje))].sort();
 }
