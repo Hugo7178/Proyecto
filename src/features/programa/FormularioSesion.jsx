@@ -15,7 +15,6 @@ const VACIA = {
   moderador: '',
 };
 
-// Ventana para crear o editar una sesión; valida campo por campo y el cruce de salas.
 export default function FormularioSesion({ sesion, otrasSesiones, onGuardar, onCerrar }) {
   const [datos, setDatos] = useState(sesion ?? VACIA);
   const [errores, setErrores] = useState({});

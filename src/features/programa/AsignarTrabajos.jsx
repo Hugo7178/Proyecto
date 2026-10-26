@@ -12,7 +12,6 @@ import {
 } from './programaServicio';
 import './AsignarTrabajos.css';
 
-// 6.2 · Asignación y orden de los trabajos de una sesión (comité).
 export default function AsignarTrabajos() {
   const { sesionId } = useParams();
   const { sesiones } = usePrograma();
