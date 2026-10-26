@@ -26,10 +26,11 @@ function ordenar(sesiones) {
 
 // 6.1 · Armado de sesiones del congreso (comité).
 export default function ArmadoSesiones() {
-  const { sesiones, trabajosAceptados, guardarSesion, eliminarSesion } = usePrograma();
+  const { sesiones, programa, trabajosAceptados, guardarSesion, eliminarSesion, cambiarPublicacion } = usePrograma();
   // null: cerrado · {}: nueva sesión · { sesion }: editar
   const [formulario, setFormulario] = useState(null);
   const [aEliminar, setAEliminar] = useState(null);
+  const [confirmarPublicacion, setConfirmarPublicacion] = useState(false);
   const [mensaje, setMensaje] = useState(null);
 
   const conflictos = conflictosDeSala(sesiones);
@@ -59,6 +60,26 @@ export default function ArmadoSesiones() {
     setAEliminar(null);
   }
 
+  function alCambiarPublicacion() {
+    const publicar = !programa.publicado;
+    const ok = cambiarPublicacion(publicar);
+    avisar(
+      ok,
+      publicar
+        ? 'Se publicó el programa. Ya se puede consultar en la página pública.'
+        : 'Se retiró la publicación. El programa público muestra que aún no está disponible.',
+    );
+    setConfirmarPublicacion(false);
+  }
+
+  // No se publica un programa vacío ni con salas cruzadas.
+  const motivoNoPublicar =
+    sesiones.length === 0
+      ? 'Cree al menos una sesión para publicar el programa.'
+      : conflictos.length > 0
+        ? 'Resuelva los solapamientos de sala para publicar.'
+        : null;
+
   return (
     <section className="armado">
       <header className="armado-cabecera">
@@ -67,13 +88,41 @@ export default function ArmadoSesiones() {
           <p className="armado-sub">
             {sesiones.length} {sesiones.length === 1 ? 'sesión' : 'sesiones'} · {textoDiasCongreso()} · Universidad de Lima
           </p>
+          <p className="armado-estado">
+            {programa.publicado ? (
+              <span className="insignia insignia-exito">
+                Publicado{programa.fechaPublicacion && ` el ${formatearFecha(programa.fechaPublicacion)}`}
+              </span>
+            ) : (
+              <span className="insignia insignia-neutra">Sin publicar</span>
+            )}
+            {programa.publicado && <Link to="/programa">Ver programa público</Link>}
+          </p>
         </div>
         <div className="armado-acciones">
+          <button
+            type="button"
+            className="boton-secundario"
+            onClick={() => setConfirmarPublicacion(true)}
+            disabled={!programa.publicado && Boolean(motivoNoPublicar)}
+            title={!programa.publicado ? motivoNoPublicar ?? undefined : undefined}
+          >
+            {programa.publicado ? 'Retirar publicación' : 'Publicar programa'}
+          </button>
           <button type="button" className="boton-primario" onClick={() => setFormulario({})}>
             Nueva sesión
           </button>
         </div>
       </header>
+
+      {!programa.publicado && motivoNoPublicar && sesiones.length > 0 && (
+        <p className="armado-nota armado-nota-publicar">{motivoNoPublicar}</p>
+      )}
+      {programa.publicado && conflictos.length > 0 && (
+        <p className="armado-nota armado-nota-publicar">
+          El programa está publicado con salas cruzadas: los cambios ya se ven en la página pública.
+        </p>
+      )}
 
       {mensaje && (
         <p role="status" className={'armado-mensaje armado-mensaje-' + mensaje.tipo}>
@@ -199,6 +248,19 @@ export default function ArmadoSesiones() {
         textoConfirmar="Eliminar sesión"
         onConfirmar={alEliminar}
         onCancelar={() => setAEliminar(null)}
+      />
+
+      <DialogoConfirmacion
+        abierto={confirmarPublicacion}
+        titulo={programa.publicado ? '¿Retirar la publicación del programa?' : '¿Publicar el programa?'}
+        mensaje={
+          programa.publicado
+            ? 'El programa dejará de verse en la página pública y los autores no verán su presentación hasta que vuelva a publicarlo.'
+            : `Se publicarán ${sesiones.length} sesiones. Cualquier persona podrá consultarlas y cada autor verá la fecha, hora y sala de su presentación.`
+        }
+        textoConfirmar={programa.publicado ? 'Retirar publicación' : 'Publicar'}
+        onConfirmar={alCambiarPublicacion}
+        onCancelar={() => setConfirmarPublicacion(false)}
       />
     </section>
   );

@@ -20,6 +20,20 @@
   color: var(--color-text-muted);
 }
 
+.armado-estado {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  margin-top: var(--espacio-2);
+  font-size: var(--texto-sm);
+}
+
+.armado-nota-publicar {
+  margin: 0 0 var(--espacio-4);
+  font-size: var(--texto-sm);
+  color: var(--color-warning);
+}
+
 .armado-acciones {
   display: flex;
   gap: var(--espacio-3);

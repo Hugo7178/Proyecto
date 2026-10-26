@@ -42,8 +42,13 @@ export default function ProgramaProvider({ children }) {
     return actualizarSesiones(sesiones.map((s) => (s.id === sesionId ? { ...s, trabajos } : s)));
   }
 
+  // Al publicar se registra la fecha (AAAA-MM-DD, hora local).
   function cambiarPublicacion(publicado) {
-    const nuevo = { ...programa, publicado };
+    const hoy = new Date();
+    const fecha = [hoy.getFullYear(), hoy.getMonth() + 1, hoy.getDate()]
+      .map((n) => String(n).padStart(2, '0'))
+      .join('-');
+    const nuevo = { ...programa, publicado, fechaPublicacion: publicado ? fecha : programa.fechaPublicacion };
     setPrograma(nuevo);
     return guardarPrograma(nuevo);
   }
