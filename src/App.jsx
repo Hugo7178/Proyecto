@@ -35,6 +35,7 @@ import ProgramaProvider from "./features/programa/ProgramaProvider";
 import ProgramaPublico from "./features/programa/ProgramaPublico";
 import ArmadoSesiones from "./features/programa/ArmadoSesiones";
 import AsignarTrabajos from "./features/programa/AsignarTrabajos";
+import MiPresentacion from "./features/programa/MiPresentacion";
 
 export default function App() {
   return (
@@ -98,6 +99,9 @@ export default function App() {
           <Route element={<RutaProtegida rolesPermitidos={['comite']} />}>
             <Route path="/comite/programa" element={<ArmadoSesiones />} />
             <Route path="/comite/programa/:sesionId" element={<AsignarTrabajos />} />
+          </Route>
+          <Route element={<RutaProtegida rolesPermitidos={['autor', 'ambos']} />}>
+            <Route path="/mi-presentacion" element={<MiPresentacion />} />
           </Route>
           <Route path="*" element={<PaginaNoEncontrada />} />
         </Route>
