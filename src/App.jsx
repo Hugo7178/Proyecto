@@ -33,6 +33,7 @@ import RutaRevisor from "./features/cuenta/RutaRevisor";
 // HU-6 · Programa del congreso
 import ProgramaProvider from "./features/programa/ProgramaProvider";
 import ProgramaPublico from "./features/programa/ProgramaPublico";
+import ArmadoSesiones from "./features/programa/ArmadoSesiones";
 
 export default function App() {
   return (
@@ -93,6 +94,9 @@ export default function App() {
 
           {/* HU-6 */}
           <Route path="/programa" element={<ProgramaPublico />} />
+          <Route element={<RutaProtegida rolesPermitidos={['comite']} />}>
+            <Route path="/comite/programa" element={<ArmadoSesiones />} />
+          </Route>
           <Route path="*" element={<PaginaNoEncontrada />} />
         </Route>
       </Routes>

@@ -1,4 +1,4 @@
-import { aMinutos } from './programaServicio';
+import { aMinutos, capacidadDeSesion, DURACION_TRABAJO } from './programaServicio';
 
 // Dos sesiones se solapan si comparten fecha y sala y sus horarios se cruzan.
 export function seSolapan(a, b) {
@@ -34,6 +34,10 @@ export function validarSesion(sesion, otrasSesiones) {
     errores.horario = 'Ingrese la hora de inicio y de fin.';
   } else if (aMinutos(sesion.horaFin) <= aMinutos(sesion.horaInicio)) {
     errores.horario = 'La hora de fin debe ser posterior a la de inicio.';
+  } else if (capacidadDeSesion(sesion) < 1) {
+    errores.horario = `La sesión debe durar al menos ${DURACION_TRABAJO} minutos (un trabajo).`;
+  } else if (sesion.trabajos && sesion.trabajos.length > capacidadDeSesion(sesion)) {
+    errores.horario = `Con este horario solo caben ${capacidadDeSesion(sesion)} trabajos y la sesión ya tiene ${sesion.trabajos.length}. Quite trabajos antes de acortarla.`;
   }
 
   if (!errores.horario && !errores.fecha && !errores.sala) {
