@@ -38,7 +38,7 @@ export default function ProgramaPublico() {
             El comité organizador está armando las sesiones con los trabajos aceptados.
             Vuelva a consultar después de la publicación de resultados.
           </p>
-          <Link to="/" className="programa-boton-secundario">Ir al inicio</Link>
+          <Link to="/" className="boton-secundario">Ir al inicio</Link>
         </div>
       </section>
     );
@@ -68,7 +68,7 @@ export default function ProgramaPublico() {
             {sesiones.length} sesiones · Salas {salas.join(', ')}
           </p>
         </div>
-        <button type="button" className="programa-boton-secundario" onClick={() => window.print()}>
+        <button type="button" className="boton-secundario" onClick={() => window.print()}>
           Descargar programa en PDF
         </button>
       </div>
@@ -111,33 +111,33 @@ export default function ProgramaPublico() {
         <div className="programa-vacio">
           <h2>No hay sesiones con estos filtros</h2>
           <p>Pruebe con otro eje, otra sala u otro día del congreso.</p>
-          <button type="button" className="programa-boton-secundario" onClick={limpiarFiltros}>
+          <button type="button" className="boton-secundario" onClick={limpiarFiltros}>
             Limpiar filtros
           </button>
         </div>
       ) : (
         sesionesVisibles.map((sesion) => (
-          <article key={sesion.id} className="sesion">
-            <header className="sesion-cabecera">
+          <article key={sesion.id} className="programa-sesion">
+            <header className="programa-sesion-cabecera">
               <div>
                 <h2>{sesion.nombre}</h2>
                 <p>Moderación: {sesion.moderador}</p>
               </div>
-              <div className="sesion-chips">
-                <span className="chip chip-hora">{sesion.horaInicio} – {sesion.horaFin}</span>
-                <span className="chip">Sala {sesion.sala}</span>
+              <div className="programa-sesion-chips">
+                <span className="programa-chip programa-chip-hora">{sesion.horaInicio} – {sesion.horaFin}</span>
+                <span className="programa-chip">Sala {sesion.sala}</span>
               </div>
             </header>
 
             {sesion.trabajos.length === 0 ? (
-              <p className="sesion-sin-trabajos">Trabajos por confirmar.</p>
+              <p className="programa-sesion-vacia">Trabajos por confirmar.</p>
             ) : (
-              <ol className="sesion-trabajos">
+              <ol className="programa-sesion-trabajos">
                 {sesion.trabajos.map(trabajoPorId).filter(Boolean).map((trabajo, i) => (
                   <li key={trabajo.id}>
-                    <span className="sesion-hora">{horaDeTrabajo(sesion, i)}</span>
-                    <span className="sesion-titulo">{trabajo.titulo}</span>
-                    <span className="sesion-autores">{autoresAbreviados(trabajo)}</span>
+                    <span className="programa-sesion-hora">{horaDeTrabajo(sesion, i)}</span>
+                    <span className="programa-sesion-titulo">{trabajo.titulo}</span>
+                    <span className="programa-sesion-autores">{autoresAbreviados(trabajo)}</span>
                   </li>
                 ))}
               </ol>
