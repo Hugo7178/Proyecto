@@ -174,13 +174,13 @@ export default function ArmadoSesiones() {
                 const choca = enConflicto.has(s.id);
                 return (
                   <tr key={s.id} className={choca ? 'armado-fila-conflicto' : undefined}>
-                    <td className="armado-nombre">{s.nombre}</td>
-                    <td>{s.eje}</td>
-                    <td>{formatearFecha(s.fecha)}</td>
-                    <td className="armado-dato-clave">{s.horaInicio} – {s.horaFin}</td>
-                    <td className="armado-dato-clave">{s.sala}</td>
-                    <td>{s.moderador}</td>
-                    <td className="armado-numero">{s.trabajos.length}</td>
+                    <td className="armado-nombre" data-etiqueta="Sesión">{s.nombre}</td>
+                    <td data-etiqueta="Eje">{s.eje}</td>
+                    <td data-etiqueta="Fecha">{formatearFecha(s.fecha)}</td>
+                    <td className="armado-dato-clave" data-etiqueta="Hora">{s.horaInicio} – {s.horaFin}</td>
+                    <td className="armado-dato-clave" data-etiqueta="Sala">{s.sala}</td>
+                    <td data-etiqueta="Moderador">{s.moderador}</td>
+                    <td className="armado-numero" data-etiqueta="Trabajos">{s.trabajos.length}</td>
                     <td className="armado-col-acciones">
                       <button type="button" className="armado-enlace" onClick={() => setFormulario({ sesion: s })}>
                         Editar

@@ -440,4 +440,57 @@
   .armado-form {
     grid-template-columns: 1fr;
   }
+
+  /* En celular cada sesión se ve como una tarjeta, con su etiqueta al lado de cada dato. */
+  .armado-tabla thead {
+    display: none;
+  }
+
+  .armado-tabla,
+  .armado-tabla tbody,
+  .armado-tabla tr,
+  .armado-tabla td {
+    display: block;
+  }
+
+  .armado-tabla tr {
+    padding: var(--espacio-3) var(--espacio-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .armado-tabla tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .armado-tabla td,
+  .armado-tabla tbody tr:last-child td {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--espacio-3);
+    padding: var(--espacio-1) 0;
+    border-bottom: none;
+    text-align: right;
+  }
+
+  .armado-tabla td[data-etiqueta]::before {
+    content: attr(data-etiqueta);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-align: left;
+  }
+
+  .armado-tabla .armado-nombre {
+    font-size: var(--texto-base);
+  }
+
+  .armado-fila-conflicto {
+    background: var(--color-warning-soft);
+  }
+
+  .armado-tabla td.armado-col-acciones,
+  .armado-tabla tbody tr:last-child td.armado-col-acciones {
+    justify-content: flex-start;
+    gap: 0;
+    padding-top: var(--espacio-2);
+  }
 }
