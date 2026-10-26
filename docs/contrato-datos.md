@@ -79,10 +79,19 @@ pesos de los criterios: `suma(puntaje × peso) / suma(pesos)`. Resultado de 0 a 
 | moderador | texto | nombre del moderador |
 | trabajos | lista | ids de trabajos (HU-3) en orden de exposición |
 
-**Programa:** `{ publicado, fechaPublicacion }`. El programa público solo se
-muestra cuando `publicado` es `true`.
+**Programa:** `{ publicado, fechaPublicacion }`. El programa público y la vista
+"Mi presentación" solo se muestran cuando `publicado` es `true`. `fechaPublicacion`
+(`AAAA-MM-DD`) se registra al publicar.
+
+En el navegador se guardan en `congreso.sesiones` y `congreso.programa`.
 
 **Reglas:**
-- Solo se asignan trabajos con dictamen `aceptado` o `aceptado_con_observaciones` (HU-5).
-- Cada trabajo dura 20 minutos; su hora es `horaInicio + 20 min × posición`.
+- Solo se asignan trabajos con dictamen `aceptado` o `aceptado_con_observaciones` (HU-5),
+  leídos de `congreso.dictamenes`; los dictámenes con `estado: 'borrador'` no cuentan.
+- Un trabajo está en una sola sesión.
+- Cada trabajo dura 20 minutos; su hora es `horaInicio + 20 min × posición`. La
+  sesión admite `(horaFin − horaInicio) / 20` trabajos.
 - Dos sesiones no pueden usar la misma sala el mismo día con horarios que se crucen.
+  No se puede publicar el programa mientras haya un cruce.
+- "Mi presentación" relaciona la cuenta con el trabajo por el nombre completo del
+  autor o coautor, porque el Trabajo aún no tiene el id del autor (HU-3).
