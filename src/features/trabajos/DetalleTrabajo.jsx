@@ -6,6 +6,7 @@ import { calcularConsolidado, unDecimal } from '../revisiones/consolidado';
 import { usePrograma } from '../programa/programaContexto';
 import { horaDeTrabajo } from '../programa/programaServicio';
 import { formatoFecha } from '../../shared/fechas';
+import { TRABAJOS_DEMOSTRACION } from './trabajosDemostracion';
 import './Trabajos.css';
 import './DetalleTrabajo.css';
 
@@ -73,15 +74,6 @@ function leerTrabajo(claveBorrador, trabajoId, registration) {
   };
 }
 
-function enlaceDocumentoSeguro(enlace) {
-  try {
-    const url = new URL(enlace);
-    return url.protocol === 'https:' ? url.href : '';
-  } catch {
-    return '';
-  }
-}
-
 export default function DetalleTrabajo() {
   const { trabajoId } = useParams();
   const registration = leerParticipante();
@@ -94,7 +86,10 @@ export default function DetalleTrabajo() {
 
   const correo = registration.email || registration.correo || 'autor';
   const claveBorrador = `congreso.trabajo.borrador.${correo}`;
-  const { trabajo, error } = leerTrabajo(claveBorrador, trabajoId, registration);
+  const trabajoDemostracion = TRABAJOS_DEMOSTRACION.find((item) => item.id === trabajoId);
+  const { trabajo, error } = trabajoDemostracion
+    ? { trabajo: trabajoDemostracion, error: '' }
+    : leerTrabajo(claveBorrador, trabajoId, registration);
 
   if (error || !trabajo) {
     return (
@@ -114,6 +109,7 @@ export default function DetalleTrabajo() {
   }
 
   const enRevision = trabajo.estado === 'En revisión';
+  const soloLectura = trabajo.estado === 'Enviado';
   const trabajoSistema = seed.trabajos.find((item) => item.codigo === trabajo.id);
   const dictamen = revisionesContexto?.dictamenes.find(
     (item) => item.trabajoId === trabajoSistema?.id
@@ -137,7 +133,6 @@ export default function DetalleTrabajo() {
   const posicionEnSesion = sesionAsignada?.trabajos.indexOf(trabajoSistema.id) ?? -1;
   const fechaEnvio = fechaLegible(trabajo.enviadoEn, true);
   const fechaGuardado = fechaLegible(trabajo.guardadoEn, true);
-  const enlaceDocumento = enlaceDocumentoSeguro(trabajo.formulario.enlace);
   const autorCorrespondencia = trabajo.autorCorrespondencia
     || registration.email
     || registration.correo;
@@ -150,34 +145,34 @@ export default function DetalleTrabajo() {
         <span>{trabajo.id}</span>
       </nav>
 
+      {trabajo.esDemostracion && (
+        <p className="detalle-trabajo__aviso-demostracion">
+          Caso de demostración: este estado no representa un envío real.
+        </p>
+      )}
+
+      {soloLectura && (
+        <div className="detalle-trabajo__aviso-cerrado" role="status">
+          <strong>La recepción cerró el 30/09/2026 a las 23:59.</strong>
+          <span>Este trabajo se muestra en modo lectura y ya no admite cambios. Si necesita corregir un dato, escriba al comité organizador.</span>
+        </div>
+      )}
+
       <header className="detalle-trabajo__encabezado">
         <div className="detalle-trabajo__titulo">
           <div className="detalle-trabajo__identificador">
             <span>{trabajo.id}</span>
-            <span className={`detalle-trabajo__estado${enRevision ? ' detalle-trabajo__estado--revision' : aceptado ? ' detalle-trabajo__estado--aceptado' : rechazado ? ' detalle-trabajo__estado--rechazado' : ''}`}>
+            <span className={`detalle-trabajo__estado${soloLectura ? ' detalle-trabajo__estado--enviado' : enRevision ? ' detalle-trabajo__estado--revision' : aceptado ? ' detalle-trabajo__estado--aceptado' : rechazado ? ' detalle-trabajo__estado--rechazado' : ''}`}>
               {trabajo.estado}
             </span>
+            {soloLectura && <span className="detalle-trabajo__solo-lectura">Solo lectura</span>}
           </div>
           <h1>{trabajo.formulario.titulo?.trim() || 'Trabajo sin título'}</h1>
         </div>
         <div className="detalle-trabajo__acciones">
-        {enlaceDocumento ? (
-          <a
-            className="detalle-trabajo__documento"
-            href={enlaceDocumento}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Ver documento
-          </a>
-        ) : (
-          <button
-            className="detalle-trabajo__documento"
-            type="button"
-            disabled
-            title="Este trabajo no tiene un enlace de documento válido."
-          >
-            Documento no disponible
+        {soloLectura && (
+          <button className="detalle-trabajo__editar" type="button" disabled>
+            Editar (no disponible)
           </button>
         )}
         {aceptado && (
@@ -194,7 +189,63 @@ export default function DetalleTrabajo() {
         </div>
       </header>
 
-      {aceptado ? (
+      {soloLectura ? (
+        <div className="detalle-trabajo__columnas detalle-trabajo__columnas--solo-lectura">
+          <div className="detalle-trabajo__principal">
+            <section className="trabajos__panel detalle-trabajo__panel detalle-trabajo__datos">
+              <h2>Datos del trabajo</h2>
+              <dl className="detalle-trabajo__metadatos">
+                <div>
+                  <dt>Tipo</dt>
+                  <dd>{trabajo.formulario.tipo || 'No especificado'}</dd>
+                </div>
+                <div>
+                  <dt>Eje temático</dt>
+                  <dd>{trabajo.formulario.eje || 'No especificado'}</dd>
+                </div>
+                <div>
+                  <dt>Enviado</dt>
+                  <dd>{fechaEnvio || fechaGuardado || 'Fecha no disponible'}</dd>
+                </div>
+              </dl>
+              <div className="detalle-trabajo__resumen">
+                <h3>Resumen</h3>
+                <p>{trabajo.formulario.resumen?.trim() || 'No se registró un resumen para este trabajo.'}</p>
+              </div>
+              {trabajo.palabrasClave.length > 0 && (
+                <ul className="detalle-trabajo__etiquetas" aria-label="Palabras clave">
+                  {trabajo.palabrasClave.map((palabra) => <li key={palabra}>{palabra}</li>)}
+                </ul>
+              )}
+              <div className="detalle-trabajo__autores-lectura">
+                <h3>Coautores</h3>
+                <p>
+                  {trabajo.autores.map((autor, index) => (
+                    <span key={autor.correo || autor.nombre}>
+                      {index > 0 && ' · '}
+                      {autor.nombre}
+                      {(autor.correo || '').toLocaleLowerCase() === (autorCorrespondencia || '').toLocaleLowerCase()
+                        ? ' (correspondencia)'
+                        : ''}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <aside className="detalle-trabajo__lateral">
+            <section className="trabajos__panel detalle-trabajo__panel detalle-trabajo__campos-bloqueados">
+              <span className="detalle-trabajo__sobrelinea">Campos bloqueados</span>
+              <p>Título, tipo, eje temático, resumen, palabras clave, coautores y enlace al documento.</p>
+            </section>
+            <section className="trabajos__panel detalle-trabajo__panel detalle-trabajo__que-sigue">
+              <span className="detalle-trabajo__sobrelinea">Qué sigue</span>
+              <p>El comité asignará revisores. Recibirá un correo cuando se publique la decisión, el 28/10/2026.</p>
+            </section>
+          </aside>
+        </div>
+      ) : aceptado ? (
         <div className="detalle-trabajo__columnas detalle-trabajo__columnas--aceptado">
           <div className="detalle-trabajo__principal">
             <section className="detalle-trabajo__resultado">

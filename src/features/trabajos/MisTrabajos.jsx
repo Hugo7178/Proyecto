@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { getCurrentParticipant } from '../../shared/cuentaServicio';
+import { TRABAJOS_DEMOSTRACION } from './trabajosDemostracion';
 import './Trabajos.css';
 import './MisTrabajos.css';
 
-const filtros = ['Todos', 'Borrador', 'En revisión', 'Aceptado'];
+const filtros = ['Todos', 'Borrador', 'Enviado', 'En revisión', 'Aceptado'];
 
 function leerTrabajos(claveBorrador, registration) {
   let contenido;
@@ -26,7 +28,9 @@ function leerTrabajos(claveBorrador, registration) {
     return { trabajos: [], error: 'El trabajo guardado no tiene un formato válido.' };
   }
 
-  const fecha = borrador.guardadoEn && new Date(borrador.guardadoEn);
+  const fueEnviado = ['Enviado', 'En revisión'].includes(borrador.estado);
+  const fechaRegistro = fueEnviado ? borrador.enviadoEn : borrador.guardadoEn;
+  const fecha = fechaRegistro && new Date(fechaRegistro);
   const fechaLegible = fecha && !Number.isNaN(fecha.getTime())
     ? new Intl.DateTimeFormat('es-PE', { dateStyle: 'short' }).format(fecha)
     : '';
@@ -45,7 +49,7 @@ function leerTrabajos(claveBorrador, registration) {
       eje: borrador.formulario.eje || 'Eje temático pendiente',
       tipo: borrador.formulario.tipo || 'Tipo pendiente',
       estado: borrador.estado || 'Borrador',
-      detalle: borrador.estado === 'En revisión'
+      detalle: fueEnviado
         ? `Enviado el ${fechaLegible || 'fecha no disponible'}`
         : `No enviado · borrador guardado${fechaLegible ? ` el ${fechaLegible}` : ''}`,
     }],
@@ -57,7 +61,12 @@ export default function MisTrabajos() {
   const registration = getCurrentParticipant();
   const claveBorrador = `congreso.trabajo.borrador.${registration?.email || registration?.correo || 'autor'}`;
   const [datosGuardados] = useState(() => leerTrabajos(claveBorrador, registration || {}));
-  const trabajos = datosGuardados.trabajos;
+  const ejemplos = TRABAJOS_DEMOSTRACION.map((trabajo) => ({
+    ...trabajo,
+    titulo: trabajo.formulario.titulo,
+    autores: trabajo.autores.map((autor) => autor.nombre).join(', '),
+  }));
+  const trabajos = [...datosGuardados.trabajos, ...ejemplos];
   const errorCarga = datosGuardados.error;
   const [filtro, setFiltro] = useState('Todos');
   const [busqueda, setBusqueda] = useState('');
@@ -91,6 +100,10 @@ export default function MisTrabajos() {
           </>
         )}
       </div>
+
+      <p className="mis-trabajos__aviso-demostracion">
+        Los cuatro casos marcados como demostración sirven para probar el detalle de cada estado; no son envíos reales.
+      </p>
 
       {errorCarga ? (
         <>
@@ -175,6 +188,9 @@ export default function MisTrabajos() {
                       {trabajo.estado}
                     </span>
                   </div>
+                  {trabajo.esDemostracion && (
+                    <span className="mis-trabajos__etiqueta-demostracion">Demostración</span>
+                  )}
                   <h2>
                     <Link to={`/mis-trabajos/${encodeURIComponent(trabajo.id)}`}>
                       {trabajo.titulo}

@@ -22,6 +22,12 @@
   text-decoration: underline;
 }
 
+.detalle-trabajo__aviso-demostracion {
+  margin: 0 0 12px;
+  color: #756b66;
+  font-size: 10px;
+}
+
 .detalle-trabajo__encabezado {
   display: flex;
   align-items: flex-start;
@@ -57,6 +63,20 @@
   border-color: #c98722;
   background: #fff8e9;
   color: #8a5100;
+}
+
+.detalle-trabajo__estado--enviado {
+  border-color: #7ea8d5;
+  background: #eaf2fb;
+  color: #315f91;
+}
+
+.detalle-trabajo__solo-lectura {
+  padding: 4px 8px;
+  border: 1px solid #d8d0cb;
+  background: #f3f0ed;
+  color: #756b66;
+  letter-spacing: 0;
 }
 
 .detalle-trabajo__estado--aceptado {
@@ -100,6 +120,17 @@
 .detalle-trabajo__documento:disabled {
   border-color: #c9b8bc;
   color: #756b66;
+  cursor: not-allowed;
+}
+
+.detalle-trabajo__editar {
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid #c9b8bc;
+  border-radius: 2px;
+  background: #c9b8bc;
+  color: #fff;
+  font: 600 11px 'Inter', sans-serif;
   cursor: not-allowed;
 }
 
@@ -164,6 +195,25 @@
   margin-bottom: 11px;
 }
 
+.detalle-trabajo__aviso-cerrado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 5px;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid #d99b3e;
+  border-left: 3px solid #bd7818;
+  border-radius: 2px;
+  background: #fff6e8;
+  color: #8a5100;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.detalle-trabajo__aviso-cerrado strong {
+  font-weight: 600;
+}
+
 .detalle-trabajo__metadatos {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -199,6 +249,40 @@
 .detalle-trabajo__resumen p {
   font: 400 12px/1.6 'Source Serif 4', serif;
   white-space: pre-line;
+}
+
+.detalle-trabajo__autores-lectura {
+  margin-top: 12px;
+}
+
+.detalle-trabajo__autores-lectura h3 {
+  margin-bottom: 4px;
+  color: #756b66;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.detalle-trabajo__autores-lectura p {
+  font-size: 10px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.detalle-trabajo__campos-bloqueados,
+.detalle-trabajo__que-sigue {
+  padding: 14px;
+}
+
+.detalle-trabajo__campos-bloqueados {
+  background: #f3f0ed;
+}
+
+.detalle-trabajo__campos-bloqueados p,
+.detalle-trabajo__que-sigue p {
+  font-size: 10px;
+  line-height: 1.5;
 }
 
 .detalle-trabajo__etiquetas {
@@ -539,6 +623,10 @@
   }
 
   .detalle-trabajo__documento {
+    align-self: flex-start;
+  }
+
+  .detalle-trabajo__editar {
     align-self: flex-start;
   }
 
