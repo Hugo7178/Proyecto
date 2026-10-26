@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -33,8 +32,6 @@ body {
   margin: 0 auto;
 }
 
-/* Franja superior granate del header */
-/* --- HEADER --- */
 /* Queda fijo arriba al hacer scroll. */
 .main-header {
   position: sticky;
@@ -110,7 +107,6 @@ body {
   border-radius: 2px;
 }
 
-/* --- NAVEGACIÓN --- */
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -220,7 +216,6 @@ body {
   background-color: #F6E9EC;
 }
 
-/* --- FOOTER --- */
 .main-footer {
   background-color: #1F1A1B;
   padding: 40px 0 24px;
@@ -297,14 +292,12 @@ body {
   color: #FBFAF8;
 }
 
-
 .brand-logo { text-decoration: none; color: inherit; }
 .auth-buttons a { text-decoration: none; display: inline-block; }
 /* Botones de la cabecera más compactos (no cambia .btn-primary en otras páginas). */
 .auth-buttons a { padding: 6px 14px; }
 .btn-hero-primary { text-decoration: none; display: inline-block; text-align: center; }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
   .footer-content {
     grid-template-columns: 1fr 1fr;

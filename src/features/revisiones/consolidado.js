@@ -1,4 +1,3 @@
-// Cálculos del consolidado de un trabajo, a partir de sus revisiones enviadas.
 import { promedioPonderado } from '../../shared/puntajes';
 
 export const MINIMO_REVISIONES = 2;

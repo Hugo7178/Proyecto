@@ -1,5 +1,3 @@
-// Cálculos de puntaje compartidos (formulario de evaluación y consolidado).
-
 // Convierte lo que hay en el campo a número; vacío = sin calificar.
 export function aNumero(valor) {
   if (valor === null || valor === undefined || valor === '') return null;

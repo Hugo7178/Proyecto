@@ -62,7 +62,6 @@ export default function Inicio() {
 
   return (
     <>
-      {/* --- HERO SECTION --- */}
       <section className="hero-section" id="inicio">
         <picture className="hero-foto">
           <source media="(max-width: 767px)" srcSet={heroMovil} type="image/webp" />
@@ -81,7 +80,6 @@ export default function Inicio() {
             extendidos, pósteres y casos de estudio en seis ejes temáticos.
           </p>
           <div className="hero-acciones">
-            {/* BOTÓN "ENVIAR MI TRABAJO" LLEVA AL LOGIN (1.2) */}
             <Link to="/login" className="btn-hero-primary">
               Enviar mi trabajo
             </Link>
@@ -92,7 +90,6 @@ export default function Inicio() {
         </div>
       </section>
 
-      {/* --- CÓMO PARTICIPAR --- */}
       <section className="section-pasos" aria-labelledby="pasos-titulo">
         <div className="section-header">
           <h2 className="section-title" id="pasos-titulo">Cómo participar</h2>
@@ -112,7 +109,6 @@ export default function Inicio() {
         <Link to="/registro" className="pasos-boton">Crear mi cuenta</Link>
       </section>
 
-      {/* --- EJES TEMÁTICOS --- */}
       <section className="section-ejes" id="ejes">
         <div className="section-header">
           <h2 className="section-title">Ejes temáticos</h2>
@@ -133,7 +129,6 @@ export default function Inicio() {
         </div>
       </section>
 
-      {/* --- FECHAS CLAVE Y CRITERIOS (bases del congreso) --- */}
       <section className="section-bases" id="bases" aria-labelledby="fechas-titulo">
         <div className="section-header">
           <h2 className="section-title" id="fechas-titulo">Fechas clave</h2>
@@ -173,7 +168,6 @@ export default function Inicio() {
         </ul>
       </section>
 
-      {/* --- SEDE --- */}
       <section className="section-sede" aria-labelledby="sede-titulo">
         <img className="sede-foto" src={sedeFoto} alt="Vista del campus de la Universidad de Lima" loading="lazy" />
         <div className="sede-info">

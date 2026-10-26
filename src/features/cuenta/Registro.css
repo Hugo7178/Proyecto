@@ -1,11 +1,9 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* --- SECCIÓN PRINCIPAL DE REGISTRO --- */
 .register-main-section {
   background-color: #FBFAF8;
   padding: 40px;
@@ -141,7 +139,6 @@
   cursor: pointer;
 }
 
-/* Radio buttons de Participación */
 .form-group label.section-radio-title {
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -209,7 +206,6 @@
   text-transform: none;
 }
 
-/* Checkbox bases */
 .checkbox-bases {
   flex: 1;
   min-width: 0;
@@ -235,7 +231,6 @@
   cursor: pointer;
 }
 
-/* Consentimiento y botones debajo de la línea divisoria */
 .register-footer-actions {
   display: flex;
   justify-content: space-between;
@@ -246,7 +241,6 @@
   border-top: 1px solid #E4DFDA;
 }
 
-/* Botones de acción */
 .register-actions {
   display: flex;
   flex: 0 0 auto;
@@ -293,7 +287,6 @@
   opacity: 0.75;
 }
 
-/* Sidebar informativo derecho */
 .register-info-sidebar {
   display: flex;
   flex-direction: column;
@@ -369,7 +362,6 @@
   font-weight: 600;
   text-align: center;
 }
-/* --- FOTO DE LA COLUMNA LATERAL --- */
 .register-foto {
   height: 340px;
   margin-bottom: 20px;
@@ -381,7 +373,6 @@
   background: linear-gradient(180deg, rgba(92, 25, 37, 0) 25%, rgba(92, 25, 37, 0.92) 100%);
 }
 
-/* --- TABLET Y CELULAR --- */
 @media (max-width: 900px) {
   /* minmax(0, 1fr) evita que el formulario empuje la columna más allá de la pantalla. */
   .register-layout-grid {

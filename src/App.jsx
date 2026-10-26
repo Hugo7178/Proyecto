@@ -3,7 +3,6 @@ import Layout from "./shared/Layout";
 import Inicio from "./features/publico/Inicio";
 import Portada from "./features/publico/Portada";
 
-// HU-1 · Cuenta y acceso
 import InicioSesion from "./features/cuenta/InicioSesion";
 import Registro from "./features/cuenta/Registro";
 import Bienvenida from "./features/cuenta/Bienvenida";
@@ -11,26 +10,21 @@ import MiCuenta from "./features/cuenta/MiCuenta";
 import RecuperarContrasena from "./features/cuenta/RecuperarContrasena";
 import PaginaNoEncontrada from "./features/publico/PaginaNoEncontrada";
 import RutaProtegida from "./features/cuenta/RutaProtegida";
-// HU-3 · Envío de trabajos
 import NuevoTrabajo from "./features/trabajos/NuevoTrabajo";
 import Coautores from "./features/trabajos/Coautores";
 import MisTrabajos from "./features/trabajos/MisTrabajos";
 import DetalleTrabajo from "./features/trabajos/DetalleTrabajo";
-// Configuración de la edición
 import ConfiguracionEdicion from "./features/edicion/ConfiguracionEdicion";
 import EjesTematicos from "./features/edicion/EjesTematicos";
 import TiposTrabajo from "./features/edicion/TiposTrabajo";
 import FechasLimite from "./features/edicion/FechasLimite";
 import CriteriosEvaluacion from "./features/edicion/CriteriosEvaluacion";
-// HU-4 · Asignación de revisiones
 import AsignacionRevisores from "./features/asignaciones/AsignacionRevisores";
-// HU-5 · Revisión y dictamen
 import BandejaRevisor from "./features/revisiones/BandejaRevisor";
 import FormularioEvaluacion from "./features/revisiones/FormularioEvaluacion";
 import RevisionesProvider from "./features/revisiones/RevisionesProvider";
 import ConsolidadoTrabajo from "./features/revisiones/ConsolidadoTrabajo";
 import RutaRevisor from "./features/cuenta/RutaRevisor";
-// HU-6 · Programa del congreso
 import ProgramaProvider from "./features/programa/ProgramaProvider";
 import ProgramaPublico from "./features/programa/ProgramaPublico";
 import ArmadoSesiones from "./features/programa/ArmadoSesiones";
@@ -48,7 +42,6 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Inicio />} />
 
-          {/* HU-1 */}
           <Route path="/login" element={<InicioSesion />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
@@ -61,13 +54,11 @@ export default function App() {
           />
           <Route path="*" element={<PaginaNoEncontrada />} />
 
-          {/* HU-3 */}
           <Route path="/nuevo-trabajo" element={<NuevoTrabajo />} />
           <Route path="/nuevo-trabajo/coautores" element={<Coautores />} />
           <Route path="/mis-trabajos" element={<MisTrabajos />} />
           <Route path="/mis-trabajos/:trabajoId" element={<DetalleTrabajo />} />
 
-          {/* HU-5 · Solo revisores */}
           <Route element={<RutaRevisor />}>
             <Route path="/revisor/bandeja" element={<BandejaRevisor />} />
             <Route
@@ -76,7 +67,6 @@ export default function App() {
             />
           </Route>
 
-          {/* HU-2 · Configuración de la edición · Solo comité */}
           <Route element={<RutaProtegida rolesPermitidos={['comite']} />}>
             <Route path="/comite/edicion" element={<ConfiguracionEdicion />} />
             <Route path="/comite/edicion/ejes" element={<EjesTematicos />} />
@@ -85,7 +75,6 @@ export default function App() {
             <Route path="/comite/edicion/criterios" element={<CriteriosEvaluacion />} />
           </Route>
 
-          {/* Configuración y dictámenes · Solo comité */}
           <Route element={<RutaProtegida rolesPermitidos={['comite']} />}>
             <Route path="/comite/asignaciones" element={<AsignacionRevisores />} />
             <Route
@@ -94,7 +83,6 @@ export default function App() {
             />
           </Route>
 
-          {/* HU-6 */}
           <Route path="/programa" element={<ProgramaPublico />} />
           <Route element={<RutaProtegida rolesPermitidos={['comite']} />}>
             <Route path="/comite/programa" element={<ArmadoSesiones />} />
