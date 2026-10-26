@@ -1,0 +1,78 @@
+.fc {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.fc-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fc-tabla th,
+.fc-tabla td {
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.fc-tabla th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.fc-nombre {
+  font-weight: 600;
+}
+
+.fc-puntaje {
+  width: 72px;
+  height: 38px;
+  padding: 0 var(--espacio-2);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radio);
+}
+
+.fc-comentario {
+  width: 100%;
+  min-height: 38px;
+  padding: var(--espacio-2) var(--espacio-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radio);
+  resize: vertical;
+}
+
+.fc-campo-error {
+  border-color: var(--color-danger);
+}
+
+.fc-mensaje {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-danger);
+}
+
+.fc-texto {
+  color: var(--color-text-muted);
+}
+
+.fc-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  color: var(--color-text-muted);
+}
+
+.fc-total strong {
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto-xl);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary);
+}

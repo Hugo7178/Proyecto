@@ -1,0 +1,113 @@
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import isotipo from '../assets/marca/isotipo.svg';
+import { getCurrentParticipant, signOut } from './cuentaServicio';
+
+// Encabezado común. Se modifica SOLO aquí.
+export default function Header() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const registration = location.state?.registration
+    || getCurrentParticipant();
+  const isWelcomePage = location.pathname === '/bienvenida' && registration;
+  const hasReviewerRole = ['revisor', 'ambos'].includes(registration?.rolParticipacion);
+  const hasAuthorRole = ['autor', 'ambos'].includes(registration?.rolParticipacion);
+  const hasCommitteeRole = registration?.rolParticipacion === 'comite';
+  const firstName = registration?.nombres?.trim().split(/\s+/)[0] || '';
+  const firstSurname = registration?.apellidos?.trim().split(/\s+/)[0] || '';
+  const initials = `${firstName[0] || ''}${firstSurname[0] || ''}`.toUpperCase();
+  const roleLabels = {
+    autor: 'Autor',
+    revisor: 'Revisor',
+    ambos: 'Autor y revisor',
+    comite: 'Comité'
+  };
+  const handleSignOut = () => {
+    signOut();
+    navigate('/', { replace: true });
+  };
+
+  return (
+    <>
+      <div className="top-header-bar"></div>
+
+      <header className="main-header">
+        <div className="header-top">
+          <div className="contenedor header-top-interno">
+            <Link to="/" className="brand-logo">
+              <img src={isotipo} alt="" className="logo-box" />
+              <div className="brand-titles">
+                <h2>Congreso Académico Estudiantil</h2>
+                <p>UNIVERSIDAD DE LIMA · EDICIÓN 2026</p>
+              </div>
+            </Link>
+
+            <div className="edition-status">
+              <span className="status-label">ESTADO DE LA EDICIÓN</span>
+              <span className="status-badge">Recepción abierta</span>
+            </div>
+          </div>
+        </div>
+
+        <nav className="main-nav contenedor">
+          <ul className="nav-links">
+            {registration ? (
+              <>
+                <li>
+                  {isWelcomePage
+                    ? <a href="#inicio" className="active">Inicio</a>
+                    : <NavLink to="/">Inicio</NavLink>}
+                </li>
+                {hasAuthorRole && (
+                  <li><NavLink to="/nuevo-trabajo">Nuevo trabajo</NavLink></li>
+                )}
+                {hasAuthorRole && (
+                  <li><NavLink to="/mis-trabajos">Mis trabajos</NavLink></li>
+                )}
+                {hasReviewerRole && (
+                  <li><NavLink to="/revisor/bandeja">Mi bandeja</NavLink></li>
+                )}
+                {hasCommitteeRole && (
+                  <>
+                    <li><NavLink to="/comite/edicion">Edición</NavLink></li>
+                    <li><NavLink to="/comite/asignaciones">Asignaciones</NavLink></li>
+                  </>
+                )}
+                {isWelcomePage && (
+                  <li><a href="#mi-presentacion">Mi presentación</a></li>
+                )}
+                <li><NavLink to="/mi-cuenta">Mi cuenta</NavLink></li>
+              </>
+            ) : (
+              <>
+                <li><NavLink to="/" end>Inicio</NavLink></li>
+                <li><a href="/#bases">Bases del congreso</a></li>
+                <li><a href="/#ejes">Ejes temáticos</a></li>
+                <li><NavLink to="/programa">Programa</NavLink></li>
+              </>
+            )}
+          </ul>
+
+          {registration ? (
+            <div className="registered-user">
+              <span className="registered-user-name">
+                {registration.nombres} {registration.apellidos}
+                <small>Rol: {roleLabels[registration.rolParticipacion] || 'Participante'}</small>
+              </span>
+              <span className="registered-user-initials" aria-label={`Iniciales ${initials}`}>
+                {initials}
+              </span>
+              <button className="logout-button" onClick={handleSignOut} type="button">
+                Cerrar sesión
+              </button>
+            </div>
+          ) : (
+            <div className="auth-buttons">
+              <NavLink to="/login" className="btn-secondary">Iniciar sesión</NavLink>
+              <NavLink to="/registro" className="btn-primary">Crear cuenta</NavLink>
+            </div>
+          )}
+        </nav>
+      </header>
+    </>
+  );
+}

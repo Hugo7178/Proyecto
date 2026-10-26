@@ -1,0 +1,281 @@
+.bandeja {
+  padding: 32px 40px;
+}
+
+.bandeja h1 {
+  font-size: var(--texto-2xl);
+  margin-bottom: var(--espacio-1);
+}
+
+.bandeja-sub {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.bandeja-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.bandeja-contadores {
+  display: flex;
+  gap: 12px;
+}
+
+.contador {
+  display: flex;
+  flex-direction: column;
+  min-width: 96px;
+  padding: 8px 14px;
+  border: 1px solid;
+}
+
+.contador span {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contador strong {
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto-xl);
+  line-height: 1.1;
+}
+
+.contador-pendientes {
+  border-color: var(--color-warning);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.contador-entregadas {
+  border-color: var(--color-success);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.contador-vencidas {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* --- Filtros --- */
+.bandeja-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filtro {
+  min-height: 36px;
+  padding: 0 var(--espacio-3);
+  font-size: 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: background-color var(--transicion), border-color var(--transicion);
+}
+
+.filtro:hover:not(.activo) {
+  border-color: var(--color-primary);
+}
+
+.filtro.activo {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.filtro-vencidas:not(.activo) {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* --- Tarjetas --- */
+.bandeja-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.revision-tarjeta {
+  display: flex;
+  flex-direction: column;
+  padding: var(--espacio-4) var(--espacio-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-primary);
+}
+
+.revision-tarjeta-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.revision-tarjeta-codigo {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.revision-tarjeta h2 {
+  margin: var(--espacio-2) 0 var(--espacio-3);
+  font-size: var(--texto-lg);
+  line-height: 1.25;
+}
+
+.revision-tarjeta-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.revision-tarjeta-eje,
+.revision-tarjeta-tipo {
+  padding: 1px 6px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.revision-tarjeta-eje {
+  border-color: var(--color-primary-soft);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.revision-tarjeta-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.revision-tarjeta-plazo {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.plazo-pendiente,
+.plazo-progreso {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+.plazo-vencida {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.revision-tarjeta-boton {
+  min-height: 36px;
+  white-space: nowrap;
+}
+
+.revision-tarjeta-enlace {
+  text-underline-offset: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* --- Etiquetas de estado (la base .insignia está en tema.css) --- */
+.insignia-pendiente,
+.insignia-progreso {
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+.insignia-vencida {
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.insignia-entregada {
+  color: var(--color-success);
+  background: var(--color-success-soft);
+}
+
+/* --- Estados vacíos --- */
+.bandeja-sin-resultados {
+  padding: 24px;
+  text-align: center;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border);
+}
+
+.bandeja-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.bandeja-vacia-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+.bandeja-vacia h2 {
+  font-size: var(--texto-lg);
+}
+
+.bandeja-vacia p {
+  max-width: 440px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.bandeja-vacia .boton-secundario {
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .bandeja-tarjetas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .bandeja {
+    padding: 24px 16px;
+  }
+
+  .bandeja-cabecera {
+    flex-direction: column;
+  }
+
+  .revision-tarjeta-pie {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .revision-tarjeta-boton {
+    text-align: center;
+  }
+}
