@@ -1,24 +1,42 @@
 import { Link } from "react-router-dom";
+import heroGrande from "../../assets/fotos/hero-congreso.webp";
+import heroNormal from "../../assets/fotos/hero-congreso-1x.webp";
+import heroMovil from "../../assets/fotos/hero-congreso-movil.webp";
+import heroJpg from "../../assets/fotos/hero-congreso.jpg";
+import { BrainCircuit, Building2, ChartLine, CodeXml, HeartPulse, Rocket } from "lucide-react";
 import "./Inicio.css";
+
+const EJES = [
+  { titulo: "Inteligencia artificial y datos", texto: "Aprendizaje automático, analítica y ciencia de datos aplicada.", Icono: BrainCircuit },
+  { titulo: "Ingeniería de software", texto: "Arquitectura, calidad, pruebas y procesos de desarrollo.", Icono: CodeXml },
+  { titulo: "Sostenibilidad y ciudad", texto: "Movilidad, gestión del agua y ciudades resilientes.", Icono: Building2 },
+  { titulo: "Innovación y emprendimiento", texto: "Modelos de negocio, transferencia tecnológica y startups.", Icono: Rocket },
+  { titulo: "Salud y sociedad", texto: "Salud pública, bienestar estudiantil y política social.", Icono: HeartPulse },
+  { titulo: "Economía y mercados", texto: "Mercados financieros, comercio y desarrollo económico.", Icono: ChartLine },
+];
 
 export default function Inicio() {
   return (
     <>
       {/* --- HERO SECTION --- */}
       <section className="hero-section" id="inicio">
-        <div className="hero-card">
-          <div className="hero-left">
-            <span className="hero-tag">
-              CONVOCATORIA ABIERTA · LIMA, 12 Y 13 DE NOVIEMBRE DE 2026
-            </span>
-            <h1 className="hero-title">VIII Congreso Académico Estudiantil</h1>
-            <p className="hero-description">
-              Presenta tu investigación ante el comité y la comunidad
-              universitaria. Recibimos artículos completos, resúmenes
-              extendidos, pósteres y casos de estudio en seis ejes temáticos.
-            </p>
-          </div>
-          <div className="hero-right">
+        <picture className="hero-foto">
+          <source media="(max-width: 767px)" srcSet={heroMovil} type="image/webp" />
+          <source srcSet={`${heroNormal} 1280w, ${heroGrande} 2560w`} sizes="100vw" type="image/webp" />
+          <img src={heroJpg} alt="" fetchPriority="high" />
+        </picture>
+
+        <div className="contenedor hero-card">
+          <span className="hero-tag">Convocatoria abierta · Lima, 12 y 13 de noviembre de 2026</span>
+          <h1 className="hero-title">
+            <span className="hero-edicion">VIII</span> Congreso Académico Estudiantil
+          </h1>
+          <p className="hero-description">
+            Presenta tu investigación ante el comité y la comunidad
+            universitaria. Recibimos artículos completos, resúmenes
+            extendidos, pósteres y casos de estudio en seis ejes temáticos.
+          </p>
+          <div className="hero-acciones">
             {/* BOTÓN "ENVIAR MI TRABAJO" LLEVA AL LOGIN (1.2) */}
             <Link to="/login" className="btn-hero-primary">
               Enviar mi trabajo
@@ -39,32 +57,15 @@ export default function Inicio() {
           </a>
         </div>
         <div className="grid-cards">
-          <div className="card">
-            <h3>Inteligencia artificial y datos</h3>
-            <p>
-              Aprendizaje automático, analítica y ciencia de datos aplicada.
-            </p>
-          </div>
-          <div className="card">
-            <h3>Ingeniería de software</h3>
-            <p>Arquitectura, calidad, pruebas y procesos de desarrollo.</p>
-          </div>
-          <div className="card">
-            <h3>Sostenibilidad y ciudad</h3>
-            <p>Movilidad, gestión del agua y ciudades resilientes.</p>
-          </div>
-          <div className="card">
-            <h3>Innovación y emprendimiento</h3>
-            <p>Modelos de negocio, transferencia tecnológica y startups.</p>
-          </div>
-          <div className="card">
-            <h3>Salud y sociedad</h3>
-            <p>Salud pública, bienestar estudiantil y política social.</p>
-          </div>
-          <div className="card">
-            <h3>Economía y mercados</h3>
-            <p>Mercados financieros, comercio y desarrollo económico.</p>
-          </div>
+          {EJES.map(({ titulo, texto, Icono }) => (
+            <div className="card" key={titulo}>
+              <span className="card-icono" aria-hidden="true">
+                <Icono size={22} strokeWidth={1.75} />
+              </span>
+              <h3>{titulo}</h3>
+              <p>{texto}</p>
+            </div>
+          ))}
         </div>
       </section>
 

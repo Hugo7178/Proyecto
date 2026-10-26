@@ -4,9 +4,10 @@ import { useRevisiones } from "./revisionesContexto";
 import { obtenerAsignacionesDeRevisor, obtenerTrabajo } from "./revisionesServicio";
 import { TEXTO_RECOMENDACION } from "./consolidado";
 import { diasHasta, formatoFecha, textoDias } from "../../shared/fechas";
+import ilustracionVacia from "../../assets/ilustraciones/vacio-bandeja.svg";
 import "./BandejaRevisor.css";
 
-// Temporallllll
+// Temporal: se leerá de la sesión cuando HU-1 tenga el contexto compartido.
 const REVISOR_ACTUAL = "R5";
 
 const FILTROS = [
@@ -60,6 +61,8 @@ export default function BandejaRevisor() {
 
   const total = (f) => asignaciones.filter((a) => pasaFiltro(a, f)).length;
   const visibles = asignaciones.filter((a) => pasaFiltro(a, filtro));
+  // Fecha de cierre: el plazo más tardío de las asignaciones (hasta que la edición la guarde).
+  const cierre = asignaciones.reduce((max, a) => (a.fecha > max ? a.fecha : max), "");
 
   if (asignaciones.length === 0) {
     return (
@@ -67,7 +70,7 @@ export default function BandejaRevisor() {
         <h1>Mi bandeja de revisión</h1>
         <p className="bandeja-sub">Sin trabajos asignados por ahora</p>
         <div className="bandeja-vacia">
-          <span className="bandeja-vacia-icono">✓</span>
+          <img className="bandeja-vacia-icono" src={ilustracionVacia} alt="" />
           <h2>No tiene revisiones asignadas</h2>
           <p>
             El comité asigna los trabajos cuando cierra la recepción. Mantenga sus líneas de interés actualizadas para
@@ -88,6 +91,7 @@ export default function BandejaRevisor() {
           <h1>Mi bandeja de revisión</h1>
           <p className="bandeja-sub">
             {asignaciones.length} {asignaciones.length === 1 ? "trabajo asignado" : "trabajos asignados"}
+            {" · "}la etapa de revisión cierra el {formatoFecha(cierre)}
           </p>
         </div>
         <div className="bandeja-contadores">
@@ -99,6 +103,12 @@ export default function BandejaRevisor() {
             <span>Entregadas</span>
             <strong>{total("entregadas")}</strong>
           </div>
+          {total("vencidas") > 0 && (
+            <div className="contador contador-vencidas">
+              <span>Vencidas</span>
+              <strong>{total("vencidas")}</strong>
+            </div>
+          )}
         </div>
       </header>
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { getCurrentParticipant } from '../../shared/cuentaServicio';
 import Coautores from './Coautores';
 import './Trabajos.css';
 import './NuevoTrabajo.css';
@@ -14,9 +15,7 @@ function esUrlHttps(valor) {
 
 export default function NuevoTrabajo() {
   const location = useLocation();
-  const registration = JSON.parse(
-    window.sessionStorage.getItem('congreso.participante') || 'null'
-  );
+  const registration = getCurrentParticipant();
   const claveBorrador = `congreso.trabajo.borrador.${registration?.email || registration?.correo || 'autor'}`;
   const [borradorGuardado, setBorradorGuardado] = useState(() => {
     const borradorExistente = window.localStorage.getItem(claveBorrador);

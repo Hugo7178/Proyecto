@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import DisenoAcceso from '../../shared/DisenoAcceso';
+import { changeAccountPassword } from '../../shared/cuentaServicio';
 import './RecuperarContrasena.css';
 
 const RECOVERY_TOKEN_KEY = 'demo-password-recovery-token';
@@ -37,6 +39,8 @@ export default function RecuperarContrasena() {
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState({});
+  const [passwordSaveError, setPasswordSaveError] = useState('');
+  const [isSavingPassword, setIsSavingPassword] = useState(false);
   const passwordRequirements = checkPasswordRequirements(newPassword, confirmNewPassword);
   const isRecoveryTokenValid = Boolean(
     token &&
@@ -118,22 +122,36 @@ export default function RecuperarContrasena() {
     return validationErrors;
   };
 
-  const handleSavePassword = (event) => {
+  const handleSavePassword = async (event) => {
     event.preventDefault();
     const validationErrors = validateNewPassword(newPassword, confirmNewPassword);
     setPasswordErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
-    window.sessionStorage.removeItem(RECOVERY_TOKEN_KEY);
-    window.sessionStorage.removeItem(RECOVERY_EMAIL_KEY);
-    window.sessionStorage.removeItem(RECOVERY_EXPIRATION_KEY);
-    navigate('/login', { state: { email, passwordUpdated: true } });
+    setPasswordSaveError('');
+    setIsSavingPassword(true);
+    try {
+      const updated = await changeAccountPassword(email, newPassword);
+      if (!updated) {
+        setPasswordSaveError('No encontramos una cuenta registrada con ese correo.');
+        return;
+      }
+      window.sessionStorage.removeItem(RECOVERY_TOKEN_KEY);
+      window.sessionStorage.removeItem(RECOVERY_EMAIL_KEY);
+      window.sessionStorage.removeItem(RECOVERY_EXPIRATION_KEY);
+      navigate('/login', { state: { email, passwordUpdated: true } });
+    } catch {
+      setPasswordSaveError('No se pudo actualizar la contraseña. Inténtelo nuevamente.');
+    } finally {
+      setIsSavingPassword(false);
+    }
   };
 
   const formattedResendTime = `${String(Math.floor(resendSeconds / 60)).padStart(2, '0')}:${String(resendSeconds % 60).padStart(2, '0')}`;
 
   return (
     <section className="password-recovery-section">
+      <DisenoAcceso>
       <section className="password-recovery-card">
         <ol className="recovery-progress" aria-label="Pasos para recuperar la contraseña">
           <li className={!isSentStep && !isNewPasswordStep ? 'current' : 'complete'}>1. Correo</li>
@@ -155,6 +173,9 @@ export default function RecuperarContrasena() {
             <p className="recovery-description">
               La nueva contraseña reemplaza a la anterior en todos sus dispositivos.
             </p>
+            {passwordSaveError && (
+              <p className="recovery-error" role="alert">{passwordSaveError}</p>
+            )}
             <form className="recovery-form" onSubmit={handleSavePassword} noValidate>
               <div className="recovery-field">
                 <label htmlFor="new-password">Nueva contraseña</label>
@@ -195,7 +216,9 @@ export default function RecuperarContrasena() {
                   {passwordErrors.confirmNewPassword || (passwordRequirements[3].isMet ? 'Las contraseñas coinciden.' : 'Vuelva a escribir la nueva contraseña.')}
                 </span>
               </div>
-              <button type="submit" className="recovery-send-button">Guardar y entrar</button>
+              <button type="submit" className="recovery-send-button" disabled={isSavingPassword}>
+                {isSavingPassword ? 'Guardando...' : 'Guardar y entrar'}
+              </button>
             </form>
           </div>
         ) : isSentStep ? (
@@ -228,7 +251,7 @@ export default function RecuperarContrasena() {
               to={`/recuperar-contrasena?token=${encodeURIComponent(recoveryToken)}`}
               className="recovery-login-link"
             >
-              Abrir enlace de recuperación (simulación)
+              Abrir enlace de recuperación
             </Link>
             <Link to="/login" className="recovery-login-link">
               Volver al inicio de sesión
@@ -270,6 +293,7 @@ export default function RecuperarContrasena() {
           </>
         )}
       </section>
+      </DisenoAcceso>
     </section>
   );
 }

@@ -1,22 +1,49 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import isotipo from '../assets/marca/isotipo.svg';
+import { getCurrentParticipant, signOut } from './cuentaServicio';
 
 // Encabezado común. Se modifica SOLO aquí.
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
+  // Menú desplegable del celular (en escritorio no se usa).
+  const [menuAbierto, setMenuAbierto] = useState(false);
   const registration = location.state?.registration
-    || JSON.parse(window.sessionStorage.getItem('congreso.participante') || 'null');
+    || getCurrentParticipant();
   const isWelcomePage = location.pathname === '/bienvenida' && registration;
   const hasReviewerRole = ['revisor', 'ambos'].includes(registration?.rolParticipacion);
   const hasAuthorRole = ['autor', 'ambos'].includes(registration?.rolParticipacion);
+  const hasCommitteeRole = registration?.rolParticipacion === 'comite';
   const firstName = registration?.nombres?.trim().split(/\s+/)[0] || '';
   const firstSurname = registration?.apellidos?.trim().split(/\s+/)[0] || '';
   const initials = `${firstName[0] || ''}${firstSurname[0] || ''}`.toUpperCase();
   const roleLabels = {
     autor: 'Autor',
     revisor: 'Revisor',
-    ambos: 'Autor y revisor'
+    ambos: 'Autor y revisor',
+    comite: 'Comité'
   };
+  const handleSignOut = () => {
+    signOut();
+    navigate('/', { replace: true });
+  };
+
+  // Escape cierra el menú del celular.
+  useEffect(() => {
+    if (!menuAbierto) return;
+    function alPresionar(e) {
+      if (e.key === 'Escape') setMenuAbierto(false);
+    }
+    window.addEventListener('keydown', alPresionar);
+    return () => window.removeEventListener('keydown', alPresionar);
+  }, [menuAbierto]);
+
+  // Al tocar un enlace del menú, se cierra.
+  function alTocarMenu(e) {
+    if (e.target.closest('a')) setMenuAbierto(false);
+  }
 
   return (
     <>
@@ -37,10 +64,26 @@ export default function Header() {
               <span className="status-label">ESTADO DE LA EDICIÓN</span>
               <span className="status-badge">Recepción abierta</span>
             </div>
+
+            <button
+              type="button"
+              className="boton-menu"
+              aria-expanded={menuAbierto}
+              aria-controls="menu-principal"
+              aria-label={menuAbierto ? 'Cerrar menú' : 'Abrir menú'}
+              onClick={() => setMenuAbierto(!menuAbierto)}
+            >
+              {menuAbierto ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            </button>
           </div>
         </div>
 
-        <nav className="main-nav contenedor">
+        <nav
+          id="menu-principal"
+          className={'main-nav contenedor' + (menuAbierto ? ' abierto' : '')}
+          aria-label="Principal"
+          onClick={alTocarMenu}
+        >
           <ul className="nav-links">
             {registration ? (
               <>
@@ -57,6 +100,12 @@ export default function Header() {
                 )}
                 {hasReviewerRole && (
                   <li><NavLink to="/revisor/bandeja">Mi bandeja</NavLink></li>
+                )}
+                {hasCommitteeRole && (
+                  <>
+                    <li><NavLink to="/comite/edicion">Edición</NavLink></li>
+                    <li><NavLink to="/comite/asignaciones">Asignaciones</NavLink></li>
+                  </>
                 )}
                 {isWelcomePage && (
                   <li><a href="#mi-presentacion">Mi presentación</a></li>
@@ -82,6 +131,9 @@ export default function Header() {
               <span className="registered-user-initials" aria-label={`Iniciales ${initials}`}>
                 {initials}
               </span>
+              <button className="logout-button" onClick={handleSignOut} type="button">
+                Cerrar sesión
+              </button>
             </div>
           ) : (
             <div className="auth-buttons">

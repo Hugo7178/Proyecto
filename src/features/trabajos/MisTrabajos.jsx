@@ -54,9 +54,7 @@ function leerTrabajos(claveBorrador, registration) {
 }
 
 export default function MisTrabajos() {
-  const registration = JSON.parse(
-    window.sessionStorage.getItem('congreso.participante') || 'null'
-  );
+  const registration = getCurrentParticipant();
   const claveBorrador = `congreso.trabajo.borrador.${registration?.email || registration?.correo || 'autor'}`;
   const [datosGuardados] = useState(() => leerTrabajos(claveBorrador, registration || {}));
   const trabajos = datosGuardados.trabajos;
