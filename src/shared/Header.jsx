@@ -103,9 +103,13 @@ export default function Header() {
                   <>
                     <li><NavLink to="/comite/edicion">Edición</NavLink></li>
                     <li><NavLink to="/comite/asignaciones">Asignaciones</NavLink></li>
+                    <li><NavLink to="/comite/programa">Programa</NavLink></li>
                   </>
                 )}
-                {isWelcomePage && (
+                {hasAuthorRole && (
+                  <li><NavLink to="/mi-presentacion">Mi presentación</NavLink></li>
+                )}
+                {isWelcomePage && !hasAuthorRole && (
                   <li><a href="#mi-presentacion">Mi presentación</a></li>
                 )}
                 <li><NavLink to="/mi-cuenta">Mi cuenta</NavLink></li>
