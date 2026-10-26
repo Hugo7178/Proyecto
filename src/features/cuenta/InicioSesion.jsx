@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import DisenoAcceso from "../../shared/DisenoAcceso";
 import {
   getParticipantHome,
   signIn,
@@ -66,7 +67,8 @@ function InicioSesion() {
     <div className="login-app-container">
 
       {/* --- SECCIÓN PRINCIPAL DE INICIO DE SESIÓN --- */}
-      <main className="login-main-section">
+      <section className="login-main-section">
+        <DisenoAcceso>
         <div className="login-card">
           <h1 className="login-title">Inicio de sesión</h1>
 
@@ -189,7 +191,8 @@ function InicioSesion() {
             </Link>
           </div>
         </div>
-      </main>
+        </DisenoAcceso>
+      </section>
 
     </div>
   );

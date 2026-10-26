@@ -1,5 +1,6 @@
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { getCurrentParticipant, getParticipantHome } from '../../shared/cuentaServicio';
+import ilustracion from '../../assets/ilustraciones/acceso-denegado.svg';
 import './RutaRevisor.css';
 
 const ROLE_LABELS = {
@@ -21,7 +22,7 @@ export default function RutaProtegida({ rolesPermitidos }) {
     return (
       <section className="access-denied-page" aria-labelledby="access-denied-title">
         <div className="access-denied-content">
-          <span className="access-denied-icon" aria-hidden="true">!</span>
+          <img className="access-denied-icon" src={ilustracion} alt="" />
           <h1 id="access-denied-title">No tiene permiso para ver esta página</h1>
           <p>
             Esta sección es exclusiva para {rolesPermitidos

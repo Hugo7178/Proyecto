@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import isotipo from '../assets/marca/isotipo.svg';
 import { getCurrentParticipant, signOut } from './cuentaServicio';
 
@@ -6,6 +8,8 @@ import { getCurrentParticipant, signOut } from './cuentaServicio';
 export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
+  // Menú desplegable del celular (en escritorio no se usa).
+  const [menuAbierto, setMenuAbierto] = useState(false);
   const registration = location.state?.registration
     || getCurrentParticipant();
   const isWelcomePage = location.pathname === '/bienvenida' && registration;
@@ -26,6 +30,21 @@ export default function Header() {
     navigate('/', { replace: true });
   };
 
+  // Escape cierra el menú del celular.
+  useEffect(() => {
+    if (!menuAbierto) return;
+    function alPresionar(e) {
+      if (e.key === 'Escape') setMenuAbierto(false);
+    }
+    window.addEventListener('keydown', alPresionar);
+    return () => window.removeEventListener('keydown', alPresionar);
+  }, [menuAbierto]);
+
+  // Al tocar un enlace del menú, se cierra.
+  function alTocarMenu(e) {
+    if (e.target.closest('a')) setMenuAbierto(false);
+  }
+
   return (
     <>
       <div className="top-header-bar"></div>
@@ -45,10 +64,26 @@ export default function Header() {
               <span className="status-label">ESTADO DE LA EDICIÓN</span>
               <span className="status-badge">Recepción abierta</span>
             </div>
+
+            <button
+              type="button"
+              className="boton-menu"
+              aria-expanded={menuAbierto}
+              aria-controls="menu-principal"
+              aria-label={menuAbierto ? 'Cerrar menú' : 'Abrir menú'}
+              onClick={() => setMenuAbierto(!menuAbierto)}
+            >
+              {menuAbierto ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            </button>
           </div>
         </div>
 
-        <nav className="main-nav contenedor">
+        <nav
+          id="menu-principal"
+          className={'main-nav contenedor' + (menuAbierto ? ' abierto' : '')}
+          aria-label="Principal"
+          onClick={alTocarMenu}
+        >
           <ul className="nav-links">
             {registration ? (
               <>

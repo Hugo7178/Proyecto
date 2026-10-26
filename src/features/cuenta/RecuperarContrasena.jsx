@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import DisenoAcceso from '../../shared/DisenoAcceso';
 import { changeAccountPassword } from '../../shared/cuentaServicio';
 import './RecuperarContrasena.css';
 
@@ -150,6 +151,7 @@ export default function RecuperarContrasena() {
 
   return (
     <section className="password-recovery-section">
+      <DisenoAcceso>
       <section className="password-recovery-card">
         <ol className="recovery-progress" aria-label="Pasos para recuperar la contraseña">
           <li className={!isSentStep && !isNewPasswordStep ? 'current' : 'complete'}>1. Correo</li>
@@ -291,6 +293,7 @@ export default function RecuperarContrasena() {
           </>
         )}
       </section>
+      </DisenoAcceso>
     </section>
   );
 }
